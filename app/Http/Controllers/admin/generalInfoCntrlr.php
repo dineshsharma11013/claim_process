@@ -417,9 +417,11 @@ function removeBanner(Request $req, $id, $banner)
         $cat->address = $req->address ?? "";
         $cat->email = $req->email ?? "";
         $cat->mobile = $req->contact ?? "";
+
         $cat->company_id = "";
         $cat->case_type = "";
         
+
         $cat->username = $req->username ?? ""; 
         $cat->password  = $req->password ?? "";
         $cat->pwd = Hash::make($req->password) ?? "";
@@ -430,7 +432,9 @@ function removeBanner(Request $req, $id, $banner)
         $cat->user_type = 2;
         $cat->authorised_person = '';
         $cat->rem_addr = $req->ip();
+
         $cat->status= 2;
+
         $cat->logo = "";
         $cat->availability ="";
         $cat->banners = "";
@@ -463,7 +467,9 @@ function removeBanner(Request $req, $id, $banner)
         
         if($cat->save())
         {
+
           $result = DB::table("general_info_mdls")->where([['username',$req->username],['status',2],['flag',2],['url','ip']])->limit(1)->first(); 
+
 
                   DB::table('general_info_mdls')->where(['id'=>$result->id])->update(['user_id'=>$result->id]);
 
