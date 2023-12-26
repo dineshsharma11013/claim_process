@@ -58,7 +58,7 @@ class generalInfoCntrlr extends Controller
         }
         else
         {
-       // dd($jsl); 
+      
         return view('admin.changePassword',compact("users","jsl","a_vl"));
       }
   }
@@ -69,7 +69,6 @@ class generalInfoCntrlr extends Controller
         $response = array();
         $cat = new generalInfoMdl;
         $cat->company_name = $req->comp_name ?? "";
-      
         $cat->address = $req->address ?? "";
         $cat->email = $req->email ?? "";
         $cat->mobile = $req->mobile ?? "";

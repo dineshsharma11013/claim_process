@@ -4,7 +4,7 @@
 
 
  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper arivndf">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <!-- <h1>
