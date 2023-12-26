@@ -28,8 +28,8 @@ class case_cntrlr extends Controller
       $sunday = date( 'Y-m-d', strtotime( 'sunday this week' ) );
       $fd = Config::get('site.admin_type');
 
-      if (userType()->user_type==2 || userType()->user_type==1)
-              {
+      // if (userType()->user_type==2 || userType()->user_type==1)
+      //         {
       $users = DB::table('todo_mdls as td')
               ->leftJoin('general_info_mdls as gen', 'gen.id', '=', 'td.assigned_to');
           $users = $users->where([['td.created_by_id', '=', Session::get('admin_id')], ['td.deleted_by', '=', ''], ['cirp_name', '=', $id], ['td.end_date', '>=', $monday], ['td.end_date', '<=', $sunday]]);
@@ -98,7 +98,7 @@ class case_cntrlr extends Controller
                     
               $comps = $comps->orderBy('id','desc')
                     ->get();
-
+            $cmp = DB::table('company_dtls')->where('id', $id)->select('name')->first();  
 
         //echo $id;die();    
 
@@ -108,9 +108,9 @@ class case_cntrlr extends Controller
          //  die();   
 
 
-        return view('admin.case_dashboard' , compact('id', "users", "a_vl", "data", "sbrs","emps", "comps", "fd"));
+        return view('admin.case_dashboard' , compact('id', "users", "a_vl", "data", "sbrs","emps", "comps", "fd", "cmp"));
     
-    }
+   // }
     
     }
 
