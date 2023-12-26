@@ -1,0 +1,1 @@
+<img class="profile-pic-user" id="cle_signtre" src="{{ asset('public/access/media/forms/'.$form.'/documents/'.$db->unId.'/'.$db->sign) }}" width="75" height="75" >

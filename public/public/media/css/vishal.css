@@ -1,0 +1,19 @@
+label{
+    font-family: 'Roboto', sans-serif;
+}
+
+span{
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+p{
+    font-family: 'Roboto Mono', monospace;
+}
+
+h2{
+    font-weight: bold !important ;
+}
+
+.form-control{
+    border-radius: 13px !important;
+}

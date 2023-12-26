@@ -1,0 +1,1 @@
+<button type="button" onclick="saveData('{{$form}}','{{$btnId}}','{{$path}}',{{$method}},'{{$redirect}}')" class="btn {{$btnClass}}">{{$value}}</button>

@@ -1,0 +1,1 @@
+<button type="button" id="{{$btnId}}" onclick="saveSynData('{{$form}}','{{$btnId}}','{{$path}}',{{$method}},'{{$redirect}}')" class="btn {{$btnClass}}">{{$value}}</button>
