@@ -162,33 +162,7 @@ svg#SvgjsSvg2129 {
 
 
 
-<div class="col-lg-3 col-md-6 col-sm-12">
-<div class="small-box" style="background-color:#fff; border-radius:10px;">
-    
-    <div id="redial"style="text-align: center; display: inline-block;">
-    <div id="redial " class="apexcharts-canvas apexchartsthy0ybql apexcharts-theme-light" style="width: 100%; height:130px;">
-        <svg id="SvgjsSvg2129" width="100%"  xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(40, 0)" style="background: transparent;"><g id="SvgjsG2131" class="apexcharts-inner apexcharts-graphical" transform="translate(0, 0)">
-            <defs id="SvgjsDefs2130"><clipPath id="gridRectMaskthy0ybql"><rect id="SvgjsRect2133" width="156" height="162" x="-3" y="-1" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="gridRectMarkerMaskthy0ybql"><rect id="SvgjsRect2134" width="154" height="164" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><linearGradient id="SvgjsLinearGradient2139" x1="1" y1="0" x2="0" y2="1"><stop id="SvgjsStop2140" stop-opacity="1" stop-color="rgba(241,234,255,1)" offset="0.64"></stop><stop id="SvgjsStop2141" stop-opacity="1" stop-color="rgba(243,237,255,1)" offset="0.43"></stop><stop id="SvgjsStop2142" stop-opacity="1" stop-color="rgba(243,237,255,1)" offset="0.64"></stop><stop id="SvgjsStop2143" stop-opacity="1" stop-color="rgba(241,234,255,1)" offset="0.005"></stop></linearGradient><linearGradient id="SvgjsLinearGradient2150" x1="1" y1="0" x2="0" y2="1"><stop id="SvgjsStop2151" stop-opacity="1" stop-color="rgba(122,132,155,1)" offset="0.64"></stop><stop id="SvgjsStop2152" stop-opacity="1" stop-color="rgba(142,150,170,1)" offset="0.43"></stop><stop id="SvgjsStop2153" stop-opacity="1" stop-color="rgba(142,150,170,1)" offset="0.64"></stop><stop id="SvgjsStop2154" stop-opacity="1" stop-color="rgba(122,132,155,1)" offset="0.005"></stop></linearGradient></defs><g id="SvgjsG2135" class="apexcharts-radialbar"><g id="SvgjsG2136"><g id="SvgjsG2137" class="apexcharts-tracks"><g id="SvgjsG2138" class="apexcharts-radialbar-track apexcharts-track" rel="1"><path id="apexcharts-radialbarTrack-0" d="M 74.99999999999999 127.71951219512195 A 52.71951219512196 52.71951219512196 0 1 1 75.0920128600705 127.71943189873346" fill="none" fill-opacity="1" stroke="rgba(241,234,255,0.85)" stroke-opacity="1" stroke-linecap="butt" stroke-width="11.634146341463415" stroke-dasharray="0" class="apexcharts-radialbar-area" data:pathorig="M 74.99999999999999 127.71951219512195 A 52.71951219512196 52.71951219512196 0 1 1 75.0920128600705 127.71943189873346"></path></g></g><g id="SvgjsG2145"><g id="SvgjsG2149" class="apexcharts-series apexcharts-radial-series" seriesname="AveragexResults" rel="1" data:realindex="0"><path id="SvgjsPath2155" d="M 74.99999999999999 127.71951219512195 A 52.71951219512196 52.71951219512196 0 1 1 127.71951219512195 75" fill="none" fill-opacity="0.85" stroke="url(#SvgjsLinearGradient2150)" stroke-opacity="1" stroke-linecap="butt" stroke-width="11.634146341463415" stroke-dasharray="0" class="apexcharts-radialbar-area apexcharts-radialbar-slice-0" data:angle="270" data:value="75" index="0" j="0" data:pathorig="M 74.99999999999999 127.71951219512195 A 52.71951219512196 52.71951219512196 0 1 1 127.71951219512195 75"></path></g><circle id="SvgjsCircle2146" r="26.902439024390247" cx="75" cy="75" class="apexcharts-radialbar-hollow" fill="transparent"></circle><g id="SvgjsG2147" class="apexcharts-datalabels-group" transform="translate(0, 0) scale(1)" style="opacity: 1;"><text id="SvgjsText2148" font-family="Helvetica, Arial, sans-serif" x="75" y="80" text-anchor="middle" dominant-baseline="auto" font-size="24px" font-weight="600" fill="#000000" class="apexcharts-text apexcharts-datalabel-value" style="font-family: Helvetica, Arial, sans-serif;">75%</text></g></g></g></g><line id="SvgjsLine2156" x1="0" y1="0" x2="150" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine2157" x1="0" y1="0" x2="150" y2="0" stroke-dasharray="0" stroke-width="0" class="apexcharts-ycrosshairs-hidden"></line></g><g id="SvgjsG2132" class="apexcharts-annotations"></g></svg> <div class="apexcharts-legend">
-                
-            </div>
-            </div>
-            </div>
-    
-<div style="display:flex; justify-content: space-around; padding:3px 0px; align-items:center;">
-<div class="inner revenue-date text-center">
 
-<h4 style="color:#000">Dashboard Reports</h4>
-<!-- <p style="color:#000">Lorem ipsum dolor sit amet, consectetur</p> -->
-
-<!-- <button type="button" class="btn btn-warning"style="color:#000";>More Details</button> -->
-</div>
-
-</div>
-
-
-
-</div>
-</div>
 
 
 
