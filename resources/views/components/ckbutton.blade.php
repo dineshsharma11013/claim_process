@@ -1,0 +1,1 @@
+<button type="button" id="{{$btnId}}" onclick="saveCKData('{{$form}}','{{$btnId}}','{{$path}}',{{$method}}, '{{$redirect}}')" class="btn {{$btnClass}}">{{$value}}</button>
