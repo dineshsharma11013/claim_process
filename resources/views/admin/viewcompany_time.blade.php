@@ -2,6 +2,44 @@
 
 @section("container")
 
+<style>
+    table.dataTable thead .sorting:after {
+     opacity: 0.6; 
+    content: "\e150";
+}
+tr.even{
+    background-color:#ebf3f9;
+}
+ .table::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .table::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+
+  .table::-webkit-scrollbar-thumb {
+    background-color:  #428bca6e;
+  }
+
+  .table::-webkit-scrollbar-thumb:hover {
+    background:  #428bca;
+  }
+  th {
+    font-size: 15px;
+}
+
+
+div.dataTables_wrapper div.dataTables_filter input {
+    border: 2px solid #860b387a;
+}
+label{
+    font-weight:bold!important;
+}
+
+</style>
+
+
 
  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -23,14 +61,15 @@
           
           <div class="box">
             <div class="box-header">
-            
-              <h3 class="box-title"><u>Time line Chart</u></h3>
+
+              <h3 class="box-title"><u style="text-decoration: none;"> <b>Time line Chart </b></u></h3>
             </div>
+           
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="table table-responsive">
               <table id="example1" class="table table-bordered table-striped">
-                <thead>
+                <thead style="background:#428bca;color:#fff;   box-shadow: 0px 10px 5px -12px lightblue;">
                 <tr>
                   <th>S. No.</th>
                   <th>Section_Regulation</th>
