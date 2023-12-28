@@ -126,7 +126,7 @@
     $sno=1;
     
     @endphp
-    @foreach($data2 as $list2)
+    @foreach($upload_docs as $list2)
 <tr>
     <td>{{$sno++}}</td>
      <td>{{$list2->document_name}}</td>
@@ -202,6 +202,8 @@ $res =  DB::table('publication_category_document as pcd')
          <form action="{{route('submit_blank_format')}}" method="POST" enctype="multipart/form-data">
     @csrf
   <div class="form-group col-md-6">
+
+  <input type="hidden" value="{{$id}}" name="company_name">
     <label for="name">Document name</label>
     <input type="text" name="format_name" class="form-control" placeholder="Enter document name" id="name" required>
   </div>

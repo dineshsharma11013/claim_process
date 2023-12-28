@@ -88,7 +88,7 @@ else
     function publicationShow($id)
     {
       $data = DB::table('publication_category');
-                  if (userType()->user_type==2 && userType()->sub_user=='') 
+      if (userType()->user_type==2 && userType()->sub_user=='') 
                   {
               $data =  $data->where(['created_by_id'=>Session::get('admin_id')]);
                   }
@@ -98,16 +98,27 @@ else
          foreach($data as $list){
              $res['subCAt'][$list->id] = DB::table('publication_category_document')->where(['category_id'=>$list->id])->get();
             }
-         
-$data2 = DB::table('blank_document')->orderBy('id', 'desc')->get();
-  
+        
+           $data2 = DB::table('blank_document')->where(['ip_id'=>''])->orderBy('id', 'desc')->get();
+            
+            if(userType()->user_type==2)
+            {
+           
+           $upload_docs = DB::table('blank_document')->where(['ip_id'=>Session::get('admin_id'),'company_id'=>$id])->orderBy('id','desc')->get();
+            }
+           
+            if(userType()->user_type==1)
+            {
+              $upload_docs = DB::table('blank_document')->where('ip_id', '!=', '')->where(['company_id'=>$id])->orderBy('id', 'desc')->get();
 
+
+            }
   $saved_publication = DB::table('saved_publication');
             if (userType()->user_type==2 && userType()->sub_user=='') 
                   {
               $saved_publication = $saved_publication->where([['created_by','=',Session::get('admin_id')],['company_id','=','']]);
                   }
-            if ($id) 
+            if($id) 
             {
               $saved_publication = $saved_publication->orWhere([['created_by','=',Session::get('admin_id')],['company_id','=',$id]]);
             }      
@@ -116,7 +127,7 @@ $data2 = DB::table('blank_document')->orderBy('id', 'desc')->get();
 
       $publication_category = DB::table('publication_category')->where(['created_by_id'=>Session::get('admin_id')])->orderBy('id', 'desc')->get();
 
-        return view('admin.publicationDetails',compact('data','data2','saved_publication','publication_category', 'id'));
+        return view('admin.publicationDetails',compact('data','upload_docs','data2','saved_publication','publication_category', 'id'));
      
     }
 
@@ -172,8 +183,9 @@ return back();
     
     function submit_blank_format(Request  $request)
     {
-        
-    echo $request->format_name;
+    
+     // dd($request->all());
+    // echo $request->format_name;
 
         
         
@@ -191,11 +203,22 @@ if(!$duplicate)
      $filename = time().'.'.$file->getClientOriginalName();
   $file_path = $file->move(public_path('format_document/'),$filename);
     
+$usrtype= DB::table('general_info_mdls')->where(['id'=>Session('admin_id')])->first();
+if($usrtype->user_type ==2)
+{
+  $usr_iid = Session('admin_id');
+}
+else
+{
+  $usr_iid ="";
+}
+
 DB::table('blank_document')->insert([
         'company_id'=>$request->company_name ?? '',
         'document_name' => $request->format_name,
         'document_type'=>$request->dcmt_type,
           'document' => $filename,
+          'ip_id'=>$usr_iid,
           'create_by_id'=>Session::get('admin_id')
     ]);
  
