@@ -32,8 +32,16 @@ class reportGenerateCntrlr extends Controller
 				->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'operational_creditor_mdls.irp')
 				->leftjoin('user_mdls', 'user_mdls.id', '=', 'operational_creditor_mdls.user_id')
 				//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
-				->select('operational_creditor_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name')
-				->where(['company' => $company, 'operational_creditor_mdls.submitted' => 1, 'formType' => 'latest'])
+				->select('operational_creditor_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name');
+				if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('operational_creditor_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('operational_creditor_mdls.irp', user_type()->sub_user);
+                    		}
+			$data	= $data->where(['company' => $company, 'operational_creditor_mdls.submitted' => 1, 'formType' => 'latest'])
 				->get();
 		}	
 	elseif($report_type=='basic-details') {
@@ -42,8 +50,16 @@ class reportGenerateCntrlr extends Controller
 				->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'operational_creditor_mdls.irp')
 				->leftjoin('user_mdls', 'user_mdls.id', '=', 'operational_creditor_mdls.user_id')
 				//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
-				->select('operational_creditor_mdls.*' , 'user_mdls.mobile', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name')
-				->where(['company' => $company, 'operational_creditor_mdls.submitted' => 1, 'formType' => 'latest'])
+				->select('operational_creditor_mdls.*' , 'user_mdls.mobile', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name');
+			if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('operational_creditor_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('operational_creditor_mdls.irp', user_type()->sub_user);
+                    		}	
+			$data	= $data->where(['company' => $company, 'operational_creditor_mdls.submitted' => 1, 'formType' => 'latest'])
 				->get();
 		}
 
@@ -53,8 +69,16 @@ class reportGenerateCntrlr extends Controller
 				->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'operational_creditor_mdls.irp')
 				->leftjoin('user_mdls', 'user_mdls.id', '=', 'operational_creditor_mdls.user_id')
 				//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
-				->select('operational_creditor_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name')
-				->where(['company' => $company, 'operational_creditor_mdls.submitted' => 1, 'formType' => 'latest'])
+				->select('operational_creditor_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name');
+			if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('operational_creditor_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('operational_creditor_mdls.irp', user_type()->sub_user);
+                    		}	
+			$data	=$data->where(['company' => $company, 'operational_creditor_mdls.submitted' => 1, 'formType' => 'latest'])
 				->get();	
 		}
 
@@ -65,8 +89,17 @@ class reportGenerateCntrlr extends Controller
 			->leftjoin('user_mdls', 'user_mdls.id', '=', 'operational_creditor_mdls.user_id')
 			->leftjoin('form_b_approval_mdls', 'form_b_approval_mdls.form_b_id', '=', 'operational_creditor_mdls.form_b_selected_id', 'form_b_approval_mdls.user_id', '=', 'operational_creditor_mdls.user_id')
 			//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
-			->select('operational_creditor_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_b_approval_mdls.principal_amt as approved_principle_amount','form_b_approval_mdls.interest as approved_interest_amount','form_b_approval_mdls.total as approved_total_amount','form_b_approval_mdls.rejected_principle_amt as rejected_principle_amount','form_b_approval_mdls.rejected_interest_amt as rejected_interest_amount','form_b_approval_mdls.rejected_total_amount as rejected_total_amount')
-			->where(['operational_creditor_mdls.company' => $company, 'operational_creditor_mdls.submitted' => 1, 'operational_creditor_mdls.formType' => 'latest','form_b_approval_mdls.formType'=>'latest'])
+			->select('operational_creditor_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_b_approval_mdls.principal_amt as approved_principle_amount','form_b_approval_mdls.interest as approved_interest_amount','form_b_approval_mdls.total as approved_total_amount','form_b_approval_mdls.rejected_principle_amt as rejected_principle_amount','form_b_approval_mdls.rejected_interest_amt as rejected_interest_amount','form_b_approval_mdls.rejected_total_amount as rejected_total_amount');
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('operational_creditor_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('operational_creditor_mdls.irp', user_type()->sub_user);
+                    		}
+                    			
+		$data	= $data->where(['operational_creditor_mdls.company' => $company, 'operational_creditor_mdls.submitted' => 1, 'operational_creditor_mdls.formType' => 'latest','form_b_approval_mdls.formType'=>'latest'])
 			->get();
 		}
 	if (count($data)>0) {	
@@ -93,8 +126,16 @@ if ($form == 'form-c')
 		->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'finanicial_creditor_form_c_mdls.irp')
 		->leftjoin('user_mdls', 'user_mdls.id', '=', 'finanicial_creditor_form_c_mdls.user_id')
 		//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
-		->select('finanicial_creditor_form_c_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name')
-		->where(['company' => $company, 'finanicial_creditor_form_c_mdls.submitted' => 1, 'formType' => 'latest'])
+		->select('finanicial_creditor_form_c_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name');
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('finanicial_creditor_form_c_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('finanicial_creditor_form_c_mdls.irp', user_type()->sub_user);
+                    		}
+	$data	= $data->where(['company' => $company, 'finanicial_creditor_form_c_mdls.submitted' => 1, 'formType' => 'latest'])
 		->get();
 	}
 
@@ -104,8 +145,16 @@ elseif ($report_type=='basic-details') {
 		->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'finanicial_creditor_form_c_mdls.irp')
 		->leftjoin('user_mdls', 'user_mdls.id', '=', 'finanicial_creditor_form_c_mdls.user_id')
 		//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
-		->select('finanicial_creditor_form_c_mdls.*', 'user_mdls.mobile', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name')
-		->where(['company' => $company, 'finanicial_creditor_form_c_mdls.submitted' => 1, 'formType' => 'latest'])
+		->select('finanicial_creditor_form_c_mdls.*', 'user_mdls.mobile', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name');
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('finanicial_creditor_form_c_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('finanicial_creditor_form_c_mdls.irp', user_type()->sub_user);
+                    		}
+	$data	=$data->where(['company' => $company, 'finanicial_creditor_form_c_mdls.submitted' => 1, 'formType' => 'latest'])
 		->get();
 }
 
@@ -115,8 +164,16 @@ elseif ($report_type=='claim-details') {
 		->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'finanicial_creditor_form_c_mdls.irp')
 		->leftjoin('user_mdls', 'user_mdls.id', '=', 'finanicial_creditor_form_c_mdls.user_id')
 		//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
-		->select('finanicial_creditor_form_c_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name')
-		->where(['company' => $company, 'finanicial_creditor_form_c_mdls.submitted' => 1, 'formType' => 'latest'])
+		->select('finanicial_creditor_form_c_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name');
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('finanicial_creditor_form_c_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('finanicial_creditor_form_c_mdls.irp', user_type()->sub_user);
+                    		}
+	$data = 	$data->where(['company' => $company, 'finanicial_creditor_form_c_mdls.submitted' => 1, 'formType' => 'latest'])
 		->get();
 }
 
@@ -128,8 +185,16 @@ elseif ($report_type=='approved-details') {
 		->leftjoin('form_c_aproval_mdls', 'form_c_aproval_mdls.form_c_id', '=', 'finanicial_creditor_form_c_mdls.form_c_selected_id', 'form_c_aproval_mdls.user_id', '=', 'finanicial_creditor_form_c_mdls.user_id')
 		
 		//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
-		->select('finanicial_creditor_form_c_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_c_aproval_mdls.borrower_claim_amount as apprv_borrower_claim_amount','form_c_aproval_mdls.borrower_security_interest_amount as apprv_borrower_security_interest_amount','form_c_aproval_mdls.borrower_guarantee_amt as apprv_borrwer_gurantee_amount','form_c_aproval_mdls.guarantor_claim_amount as apprv_guaranter_claim_amount','form_c_aproval_mdls.guarantor_security_interest_amount as apprv_gurantor_security_interest_amount','form_c_aproval_mdls.guarantor_gaurantee_amt as apprv_guranter_gurantee_amount','form_c_aproval_mdls.guarantor_principal_borrower as apprv_guranter_principle_amunt','form_c_aproval_mdls.financial_claim_amt as financial_claimed_amount')
-		->where(['finanicial_creditor_form_c_mdls.company' => $company, 'finanicial_creditor_form_c_mdls.submitted' => 1, 'finanicial_creditor_form_c_mdls.formType' => 'latest','form_c_aproval_mdls.formType'=>'latest'])
+		->select('finanicial_creditor_form_c_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_c_aproval_mdls.borrower_claim_amount as apprv_borrower_claim_amount','form_c_aproval_mdls.borrower_security_interest_amount as apprv_borrower_security_interest_amount','form_c_aproval_mdls.borrower_guarantee_amt as apprv_borrwer_gurantee_amount','form_c_aproval_mdls.guarantor_claim_amount as apprv_guaranter_claim_amount','form_c_aproval_mdls.guarantor_security_interest_amount as apprv_gurantor_security_interest_amount','form_c_aproval_mdls.guarantor_gaurantee_amt as apprv_guranter_gurantee_amount','form_c_aproval_mdls.guarantor_principal_borrower as apprv_guranter_principle_amunt','form_c_aproval_mdls.financial_claim_amt as financial_claimed_amount');
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('finanicial_creditor_form_c_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('finanicial_creditor_form_c_mdls.irp', user_type()->sub_user);
+                    		}
+	$data	=$data->where(['finanicial_creditor_form_c_mdls.company' => $company, 'finanicial_creditor_form_c_mdls.submitted' => 1, 'finanicial_creditor_form_c_mdls.formType' => 'latest','form_c_aproval_mdls.formType'=>'latest'])
 		->get();
 }
 
@@ -163,8 +228,17 @@ if ($form == 'form-d')
 		->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'form_d_mdls.irp')
 		->leftjoin('user_mdls', 'user_mdls.id', '=', 'form_d_mdls.user_id')
 		//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
-		->select('form_d_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_d_mdls.name as neme')
-		->where(['form_d_mdls.company' => $company, 'form_d_mdls.submitted' => 1, 'form_d_mdls.formType' => 'latest'])
+		->select('form_d_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_d_mdls.name as neme');
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('form_d_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('form_d_mdls.irp', user_type()->sub_user);
+                    		}
+
+	$data = $data->where(['form_d_mdls.company' => $company, 'form_d_mdls.submitted' => 1, 'form_d_mdls.formType' => 'latest'])
 		->get();
 	}
 
@@ -174,8 +248,16 @@ elseif($report_type=='basic-details') {
 		->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'form_d_mdls.irp')
 		->leftjoin('user_mdls', 'user_mdls.id', '=', 'form_d_mdls.user_id')
 		//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
-		->select('form_d_mdls.*', 'user_mdls.mobile', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_d_mdls.name as neme')
-		->where(['form_d_mdls.company' => $company, 'form_d_mdls.submitted' => 1, 'form_d_mdls.formType' => 'latest'])
+		->select('form_d_mdls.*', 'user_mdls.mobile', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_d_mdls.name as neme');
+		            if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('form_d_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('form_d_mdls.irp', user_type()->sub_user);
+                    		}
+	$data	= $data->where(['form_d_mdls.company' => $company, 'form_d_mdls.submitted' => 1, 'form_d_mdls.formType' => 'latest'])
 		->get();
 }
 
@@ -185,8 +267,16 @@ elseif($report_type=='claim-details') {
 		->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'form_d_mdls.irp')
 		->leftjoin('user_mdls', 'user_mdls.id', '=', 'form_d_mdls.user_id')
 		//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
-		->select('form_d_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_d_mdls.name as neme')
-		->where(['form_d_mdls.company' => $company, 'form_d_mdls.submitted' => 1, 'form_d_mdls.formType' => 'latest'])
+		->select('form_d_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_d_mdls.name as neme');
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('form_d_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('form_d_mdls.irp', user_type()->sub_user);
+                    		}
+	$data	= $data->where(['form_d_mdls.company' => $company, 'form_d_mdls.submitted' => 1, 'form_d_mdls.formType' => 'latest'])
 		->get();
 }
 
@@ -197,8 +287,16 @@ elseif($report_type=='approved-details') {
 		->leftjoin('user_mdls', 'user_mdls.id', '=', 'form_d_mdls.user_id')
 		//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
 		->leftjoin('form_d_aproval_mdls', 'form_d_aproval_mdls.form_d_id', '=', 'form_d_mdls.form_d_selected_id', 'form_d_aproval_mdls.user_id', '=', 'form_d_mdls.user_id')
-		->select('form_d_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_d_mdls.name as neme','form_d_aproval_mdls.approved_principle_amt','form_d_aproval_mdls.approved_interest_amt as approved_interest_amount','form_d_aproval_mdls.total_approval_amt as approved_total_amount')
-		->where(['form_d_mdls.company' => $company, 'form_d_mdls.submitted' => 1, 'form_d_mdls.formType' => 'latest'])
+		->select('form_d_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_d_mdls.name as neme','form_d_aproval_mdls.approved_principle_amt','form_d_aproval_mdls.approved_interest_amt as approved_interest_amount','form_d_aproval_mdls.total_approval_amt as approved_total_amount');
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('form_d_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('form_d_mdls.irp', user_type()->sub_user);
+                    		}
+		$data = $data->where(['form_d_mdls.company' => $company, 'form_d_mdls.submitted' => 1, 'form_d_mdls.formType' => 'latest'])
 		->get();
 }
 
@@ -230,8 +328,16 @@ if($form == 'form-f')
 		->leftjoin('company_dtls', 'company_dtls.id', '=', 'other_creditor_form_f_mdls.company')
 		->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'other_creditor_form_f_mdls.irp')
 		->leftjoin('user_mdls', 'user_mdls.id', '=', 'other_creditor_form_f_mdls.user_id')
-		->select('other_creditor_form_f_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','other_creditor_form_f_mdls.fc_name as neme')
-		->where(['other_creditor_form_f_mdls.company' => $company, 'other_creditor_form_f_mdls.submitted' => 1, 'other_creditor_form_f_mdls.formType' => 'latest'])
+		->select('other_creditor_form_f_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','other_creditor_form_f_mdls.fc_name as neme');
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('other_creditor_form_f_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('other_creditor_form_f_mdls.irp', user_type()->sub_user);
+                    		}
+	$data	= $data->where(['other_creditor_form_f_mdls.company' => $company, 'other_creditor_form_f_mdls.submitted' => 1, 'other_creditor_form_f_mdls.formType' => 'latest'])
 		->get();
 }
 
@@ -241,8 +347,16 @@ elseif($report_type=='basic-details')
 		->leftjoin('company_dtls', 'company_dtls.id', '=', 'other_creditor_form_f_mdls.company')
 		->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'other_creditor_form_f_mdls.irp')
 		->leftjoin('user_mdls', 'user_mdls.id', '=', 'other_creditor_form_f_mdls.user_id')
-		->select('other_creditor_form_f_mdls.*', 'user_mdls.mobile', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','other_creditor_form_f_mdls.fc_name as neme')
-		->where(['other_creditor_form_f_mdls.company' => $company, 'other_creditor_form_f_mdls.submitted' => 1, 'other_creditor_form_f_mdls.formType' => 'latest'])
+		->select('other_creditor_form_f_mdls.*', 'user_mdls.mobile', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','other_creditor_form_f_mdls.fc_name as neme');
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('other_creditor_form_f_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('other_creditor_form_f_mdls.irp', user_type()->sub_user);
+                    		}
+	$data	= $data->where(['other_creditor_form_f_mdls.company' => $company, 'other_creditor_form_f_mdls.submitted' => 1, 'other_creditor_form_f_mdls.formType' => 'latest'])
 		->get();
 }
 
@@ -252,8 +366,16 @@ elseif($report_type=='claim-details') {
 		->leftjoin('company_dtls', 'company_dtls.id', '=', 'other_creditor_form_f_mdls.company')
 		->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'other_creditor_form_f_mdls.irp')
 		->leftjoin('user_mdls', 'user_mdls.id', '=', 'other_creditor_form_f_mdls.user_id')
-		->select('other_creditor_form_f_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','other_creditor_form_f_mdls.fc_name as neme')
-		->where(['other_creditor_form_f_mdls.company' => $company, 'other_creditor_form_f_mdls.submitted' => 1, 'other_creditor_form_f_mdls.formType' => 'latest'])
+		->select('other_creditor_form_f_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','other_creditor_form_f_mdls.fc_name as neme');
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('other_creditor_form_f_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('other_creditor_form_f_mdls.irp', user_type()->sub_user);
+                    		}
+	$data	= $data->where(['other_creditor_form_f_mdls.company' => $company, 'other_creditor_form_f_mdls.submitted' => 1, 'other_creditor_form_f_mdls.formType' => 'latest'])
 		->get();
 }
 
@@ -263,8 +385,16 @@ elseif($report_type=='approved-details') {
 		->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'other_creditor_form_f_mdls.irp')
 		->leftjoin('user_mdls', 'user_mdls.id', '=', 'other_creditor_form_f_mdls.user_id')
 		->leftjoin('form_f_approval_mdls', 'form_f_approval_mdls.form_f_id', '=', 'other_creditor_form_f_mdls.form_f_selected_id')
-		->select('other_creditor_form_f_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','other_creditor_form_f_mdls.fc_name as neme','form_f_approval_mdls.reason as reasoon','form_f_approval_mdls.status as apprvl_sts')
-		->where(['other_creditor_form_f_mdls.company' => $company, 'other_creditor_form_f_mdls.submitted' => 1, 'other_creditor_form_f_mdls.formType' => 'latest'])
+		->select('other_creditor_form_f_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','other_creditor_form_f_mdls.fc_name as neme','form_f_approval_mdls.reason as reasoon','form_f_approval_mdls.status as apprvl_sts');
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('other_creditor_form_f_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('other_creditor_form_f_mdls.irp', user_type()->sub_user);
+                    		}
+	$data	= $data->where(['other_creditor_form_f_mdls.company' => $company, 'other_creditor_form_f_mdls.submitted' => 1, 'other_creditor_form_f_mdls.formType' => 'latest'])
 		->get();
 
 }
@@ -299,8 +429,16 @@ if($form == 'form-ca'){
 		->leftjoin('company_dtls', 'company_dtls.id', '=', 'financial_creditor_form_ca_mdls.company')
 		->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'financial_creditor_form_ca_mdls.irp')
 		->leftjoin('user_mdls', 'user_mdls.id', '=', 'financial_creditor_form_ca_mdls.user_id')
-		->select('financial_creditor_form_ca_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','financial_creditor_form_ca_mdls.fc_name as neme')
-		->where(['financial_creditor_form_ca_mdls.company' => $company, 'financial_creditor_form_ca_mdls.submitted' => 1, 'financial_creditor_form_ca_mdls.formType' => 'latest'])
+		->select('financial_creditor_form_ca_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','financial_creditor_form_ca_mdls.fc_name as neme');
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('financial_creditor_form_ca_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('financial_creditor_form_ca_mdls.irp', user_type()->sub_user);
+                    		}
+	$data	= $data->where(['financial_creditor_form_ca_mdls.company' => $company, 'financial_creditor_form_ca_mdls.submitted' => 1, 'financial_creditor_form_ca_mdls.formType' => 'latest'])
 		->get();
 }
 elseif($report_type=='basic-details')
@@ -309,8 +447,16 @@ elseif($report_type=='basic-details')
 	->leftjoin('company_dtls', 'company_dtls.id', '=', 'financial_creditor_form_ca_mdls.company')
 	->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'financial_creditor_form_ca_mdls.irp')
 	->leftjoin('user_mdls', 'user_mdls.id', '=', 'financial_creditor_form_ca_mdls.user_id')
-	->select('financial_creditor_form_ca_mdls.*', 'user_mdls.mobile','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','financial_creditor_form_ca_mdls.fc_name as neme')
-	->where(['financial_creditor_form_ca_mdls.company' => $company, 'financial_creditor_form_ca_mdls.submitted' => 1, 'financial_creditor_form_ca_mdls.formType' => 'latest'])
+	->select('financial_creditor_form_ca_mdls.*', 'user_mdls.mobile','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','financial_creditor_form_ca_mdls.fc_name as neme');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('financial_creditor_form_ca_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('financial_creditor_form_ca_mdls.irp', user_type()->sub_user);
+                    		}
+	$data = $data->where(['financial_creditor_form_ca_mdls.company' => $company, 'financial_creditor_form_ca_mdls.submitted' => 1, 'financial_creditor_form_ca_mdls.formType' => 'latest'])
 	->get();
 
 }
@@ -320,8 +466,16 @@ elseif($report_type=='claim-details')
 	->leftjoin('company_dtls', 'company_dtls.id', '=', 'financial_creditor_form_ca_mdls.company')
 	->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'financial_creditor_form_ca_mdls.irp')
 	->leftjoin('user_mdls', 'user_mdls.id', '=', 'financial_creditor_form_ca_mdls.user_id')
-	->select('financial_creditor_form_ca_mdls.*', 'user_mdls.mobile','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','financial_creditor_form_ca_mdls.fc_name as neme')
-	->where(['financial_creditor_form_ca_mdls.company' => $company, 'financial_creditor_form_ca_mdls.submitted' => 1, 'financial_creditor_form_ca_mdls.formType' => 'latest'])
+	->select('financial_creditor_form_ca_mdls.*', 'user_mdls.mobile','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','financial_creditor_form_ca_mdls.fc_name as neme');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('financial_creditor_form_ca_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('financial_creditor_form_ca_mdls.irp', user_type()->sub_user);
+                    		}
+	$data = $data->where(['financial_creditor_form_ca_mdls.company' => $company, 'financial_creditor_form_ca_mdls.submitted' => 1, 'financial_creditor_form_ca_mdls.formType' => 'latest'])
 	->get();
 }
 
@@ -336,8 +490,16 @@ elseif($report_type=='approved-details')
 	->leftjoin('form_c_a_aproval_mdls', 'form_c_a_aproval_mdls.form_ca_id', '=', 'financial_creditor_form_ca_mdls.form_ca_selected_id')
 
 
-	->select('financial_creditor_form_ca_mdls.*', 'user_mdls.mobile','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','financial_creditor_form_ca_mdls.fc_name as neme','form_c_a_aproval_mdls.approved_principle_amt','form_c_a_aproval_mdls.approved_interest_amt','form_c_a_aproval_mdls.approved_total_amount as total_approval_amt','form_c_a_aproval_mdls.reason as resoon')
-	->where(['financial_creditor_form_ca_mdls.company' => $company, 'financial_creditor_form_ca_mdls.submitted' => 1, 'financial_creditor_form_ca_mdls.formType' => 'latest'])
+	->select('financial_creditor_form_ca_mdls.*', 'user_mdls.mobile','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','financial_creditor_form_ca_mdls.fc_name as neme','form_c_a_aproval_mdls.approved_principle_amt','form_c_a_aproval_mdls.approved_interest_amt','form_c_a_aproval_mdls.approved_total_amount as total_approval_amt','form_c_a_aproval_mdls.reason as resoon');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('financial_creditor_form_ca_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('financial_creditor_form_ca_mdls.irp', user_type()->sub_user);
+                    		}
+	$data = $data->where(['financial_creditor_form_ca_mdls.company' => $company, 'financial_creditor_form_ca_mdls.submitted' => 1, 'financial_creditor_form_ca_mdls.formType' => 'latest'])
 	->get();
 
 }
@@ -379,8 +541,16 @@ if($form == 'form-e')
 	->leftjoin('company_dtls', 'company_dtls.id', '=', 'form_e_file_mdls.company')
 	->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'form_e_file_mdls.irp')
 	->leftjoin('user_mdls', 'user_mdls.id', '=', 'form_e_file_mdls.user_id')
-	->select('form_e_file_mdls.*', 'user_mdls.mobile','user_mdls.email as user_email','user_mdls.address as user_address','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name')
-	->where(['form_e_file_mdls.company' => $company, 'form_e_file_mdls.submitted' => 1, 'form_e_file_mdls.formType' => 'latest'])
+	->select('form_e_file_mdls.*', 'user_mdls.mobile','user_mdls.email as user_email','user_mdls.address as user_address','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('form_e_file_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('form_e_file_mdls.irp', user_type()->sub_user);
+                    		}
+	$data = $data->where(['form_e_file_mdls.company' => $company, 'form_e_file_mdls.submitted' => 1, 'form_e_file_mdls.formType' => 'latest'])
 	->get();
 
 }
@@ -390,8 +560,16 @@ else if($report_type=='basic-details')
 	->leftjoin('company_dtls', 'company_dtls.id', '=', 'form_e_file_mdls.company')
 	->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'form_e_file_mdls.irp')
 	->leftjoin('user_mdls', 'user_mdls.id', '=', 'form_e_file_mdls.user_id')
-	->select('form_e_file_mdls.*', 'user_mdls.mobile as user_mobile','user_mdls.email as user_email','user_mdls.address as user_address','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name')
-	->where(['form_e_file_mdls.company' => $company, 'form_e_file_mdls.submitted' => 1, 'form_e_file_mdls.formType' => 'latest'])
+	->select('form_e_file_mdls.*', 'user_mdls.mobile as user_mobile','user_mdls.email as user_email','user_mdls.address as user_address','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('form_e_file_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('form_e_file_mdls.irp', user_type()->sub_user);
+                    		}
+	$data = $data->where(['form_e_file_mdls.company' => $company, 'form_e_file_mdls.submitted' => 1, 'form_e_file_mdls.formType' => 'latest'])
 	->get();
 
 	//dd($data);die();
@@ -403,8 +581,16 @@ else if($report_type=='claim-details')
 	->leftjoin('company_dtls', 'company_dtls.id', '=', 'form_e_file_mdls.company')
 	->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'form_e_file_mdls.irp')
 	->leftjoin('user_mdls', 'user_mdls.id', '=', 'form_e_file_mdls.user_id')
-	->select('form_e_file_mdls.*', 'user_mdls.mobile as user_mobile','user_mdls.email as user_email','user_mdls.address as user_address','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name')
-	->where(['form_e_file_mdls.company' => $company, 'form_e_file_mdls.submitted' => 1, 'form_e_file_mdls.formType' => 'latest'])
+	->select('form_e_file_mdls.*', 'user_mdls.mobile as user_mobile','user_mdls.email as user_email','user_mdls.address as user_address','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('form_e_file_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('form_e_file_mdls.irp', user_type()->sub_user);
+                    		}
+	$data = $data->where(['form_e_file_mdls.company' => $company, 'form_e_file_mdls.submitted' => 1, 'form_e_file_mdls.formType' => 'latest'])
 	->get();
 
 }
@@ -417,8 +603,16 @@ else if($report_type=='approved-details')
 	->leftjoin('form_e_approval_mdls', 'form_e_approval_mdls.form_e_id', '=', 'form_e_file_mdls.form_e_selected_id')
 
 
-	->select('form_e_file_mdls.*', 'user_mdls.mobile as user_mobile','user_mdls.email as user_email','user_mdls.address as user_address','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_e_approval_mdls.status as approval_status')
-	->where(['form_e_file_mdls.company' => $company, 'form_e_file_mdls.submitted' => 1, 'form_e_file_mdls.formType' => 'latest'])
+	->select('form_e_file_mdls.*', 'user_mdls.mobile as user_mobile','user_mdls.email as user_email','user_mdls.address as user_address','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_e_approval_mdls.status as approval_status');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('form_e_file_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('form_e_file_mdls.irp', user_type()->sub_user);
+                    		}
+	$data = $data->where(['form_e_file_mdls.company' => $company, 'form_e_file_mdls.submitted' => 1, 'form_e_file_mdls.formType' => 'latest'])
 	->get();
 }
 if (count($data)>0) 
@@ -501,8 +695,16 @@ if($form=='form-ca-secured')
 		->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'financial_creditor_form_ca_mdls.irp')
 	->leftjoin('user_mdls', 'user_mdls.id', '=', 'financial_creditor_form_ca_mdls.user_id')
 	->leftjoin('form_c_a_aproval_mdls', 'form_c_a_aproval_mdls.form_ca_id', '=', 'financial_creditor_form_ca_mdls.form_ca_selected_id')
-	->select('financial_creditor_form_ca_mdls.*', 'user_mdls.mobile','company_dtls.name as comp_name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','financial_creditor_form_ca_mdls.fc_name as neme','form_c_a_aproval_mdls.approved_principle_amt','form_c_a_aproval_mdls.approved_interest_amt','form_c_a_aproval_mdls.approved_total_amount','form_c_a_aproval_mdls.reason as resoon','form_c_a_aproval_mdls.total as claimed_ttl_amount','form_c_a_aproval_mdls.claim_nature','form_c_a_aproval_mdls.security_interest','form_c_a_aproval_mdls.guarantee_amt','form_c_a_aproval_mdls.related_party','form_c_a_aproval_mdls.voting_shares','form_c_a_aproval_mdls.contingent_amt','form_c_a_aproval_mdls.mutual_dues','form_c_a_aproval_mdls.rejected_total_amount','form_c_a_aproval_mdls.pending_total_amount','form_c_a_aproval_mdls.reason')
-	->where(['financial_creditor_form_ca_mdls.formType' => 'latest','form_c_a_aproval_mdls.claim_nature'=>1,'form_c_a_aproval_mdls.status'=>1,'form_c_a_aproval_mdls.company' => $company, 'financial_creditor_form_ca_mdls.submitted' => 1, 'form_c_a_aproval_mdls.formType'=>'latest'])
+	->select('financial_creditor_form_ca_mdls.*', 'user_mdls.mobile','company_dtls.name as comp_name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','financial_creditor_form_ca_mdls.fc_name as neme','form_c_a_aproval_mdls.approved_principle_amt','form_c_a_aproval_mdls.approved_interest_amt','form_c_a_aproval_mdls.approved_total_amount','form_c_a_aproval_mdls.reason as resoon','form_c_a_aproval_mdls.total as claimed_ttl_amount','form_c_a_aproval_mdls.claim_nature','form_c_a_aproval_mdls.security_interest','form_c_a_aproval_mdls.guarantee_amt','form_c_a_aproval_mdls.related_party','form_c_a_aproval_mdls.voting_shares','form_c_a_aproval_mdls.contingent_amt','form_c_a_aproval_mdls.mutual_dues','form_c_a_aproval_mdls.rejected_total_amount','form_c_a_aproval_mdls.pending_total_amount','form_c_a_aproval_mdls.reason');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('financial_creditor_form_ca_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('financial_creditor_form_ca_mdls.irp', user_type()->sub_user);
+                    		}
+	$data = $data->where(['financial_creditor_form_ca_mdls.formType' => 'latest','form_c_a_aproval_mdls.claim_nature'=>1,'form_c_a_aproval_mdls.status'=>1,'form_c_a_aproval_mdls.company' => $company, 'financial_creditor_form_ca_mdls.submitted' => 1, 'form_c_a_aproval_mdls.formType'=>'latest'])
 	->get();
 	
 	$secntionDt = [];		
@@ -544,8 +746,16 @@ if($form=='form-ca-unsecured')
 		->leftjoin('general_info_mdls', 'general_info_mdls.id', '=', 'financial_creditor_form_ca_mdls.irp')
 	->leftjoin('user_mdls', 'user_mdls.id', '=', 'financial_creditor_form_ca_mdls.user_id')
 	->leftjoin('form_c_a_aproval_mdls', 'form_c_a_aproval_mdls.form_ca_id', '=', 'financial_creditor_form_ca_mdls.form_ca_selected_id')
-	->select('financial_creditor_form_ca_mdls.*', 'user_mdls.mobile','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','financial_creditor_form_ca_mdls.fc_name as neme','form_c_a_aproval_mdls.approved_principle_amt','form_c_a_aproval_mdls.approved_interest_amt','form_c_a_aproval_mdls.approved_total_amount','form_c_a_aproval_mdls.reason as resoon','form_c_a_aproval_mdls.total as claimed_ttl_amount','form_c_a_aproval_mdls.claim_nature','form_c_a_aproval_mdls.security_interest','form_c_a_aproval_mdls.guarantee_amt','form_c_a_aproval_mdls.related_party','form_c_a_aproval_mdls.voting_shares','form_c_a_aproval_mdls.contingent_amt','form_c_a_aproval_mdls.mutual_dues','form_c_a_aproval_mdls.rejected_total_amount','form_c_a_aproval_mdls.pending_total_amount','form_c_a_aproval_mdls.reason')
-	->where(['financial_creditor_form_ca_mdls.formType' => 'latest','form_c_a_aproval_mdls.claim_nature'=>2,'form_c_a_aproval_mdls.status'=>1,'form_c_a_aproval_mdls.company' => $company, 'financial_creditor_form_ca_mdls.submitted' => 1, 'form_c_a_aproval_mdls.formType'=>'latest'])
+	->select('financial_creditor_form_ca_mdls.*', 'user_mdls.mobile','company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','financial_creditor_form_ca_mdls.fc_name as neme','form_c_a_aproval_mdls.approved_principle_amt','form_c_a_aproval_mdls.approved_interest_amt','form_c_a_aproval_mdls.approved_total_amount','form_c_a_aproval_mdls.reason as resoon','form_c_a_aproval_mdls.total as claimed_ttl_amount','form_c_a_aproval_mdls.claim_nature','form_c_a_aproval_mdls.security_interest','form_c_a_aproval_mdls.guarantee_amt','form_c_a_aproval_mdls.related_party','form_c_a_aproval_mdls.voting_shares','form_c_a_aproval_mdls.contingent_amt','form_c_a_aproval_mdls.mutual_dues','form_c_a_aproval_mdls.rejected_total_amount','form_c_a_aproval_mdls.pending_total_amount','form_c_a_aproval_mdls.reason');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('financial_creditor_form_ca_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('financial_creditor_form_ca_mdls.irp', user_type()->sub_user);
+                    		}
+	$data = $data->where(['financial_creditor_form_ca_mdls.formType' => 'latest','form_c_a_aproval_mdls.claim_nature'=>2,'form_c_a_aproval_mdls.status'=>1,'form_c_a_aproval_mdls.company' => $company, 'financial_creditor_form_ca_mdls.submitted' => 1, 'form_c_a_aproval_mdls.formType'=>'latest'])
 	->get();
 	
 	$secntionDt = [];		
@@ -586,9 +796,17 @@ if($form=='form-c-secured')
 	//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
 	
 
-	->select('finanicial_creditor_form_c_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_c_aproval_mdls.borrower_claim_amount as apprv_borrower_claim_amount','form_c_aproval_mdls.borrower_security_interest_amount as apprv_borrower_security_interest_amount','form_c_aproval_mdls.borrower_guarantee_amt as apprv_borrwer_gurantee_amount','form_c_aproval_mdls.guarantor_claim_amount as apprv_guaranter_claim_amount','form_c_aproval_mdls.guarantor_security_interest_amount as apprv_gurantor_security_interest_amount','form_c_aproval_mdls.guarantor_gaurantee_amt as apprv_guranter_gurantee_amount','form_c_aproval_mdls.guarantor_principal_borrower as apprv_guranter_principle_amunt','form_c_aproval_mdls.financial_claim_amt as financial_claimed_amount','form_c_aproval_mdls.claim_nature','form_c_aproval_mdls.approved_total_amount','form_c_aproval_mdls.rejected_total_amount','form_c_aproval_mdls.pending_total_amount','form_c_aproval_mdls.security_interest','form_c_aproval_mdls.guarantee_amt','form_c_aproval_mdls.related_party','form_c_aproval_mdls.voting_shares','form_c_aproval_mdls.contingent_amt','form_c_aproval_mdls.mutual_dues','form_c_aproval_mdls.reason')
+	->select('finanicial_creditor_form_c_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_c_aproval_mdls.borrower_claim_amount as apprv_borrower_claim_amount','form_c_aproval_mdls.borrower_security_interest_amount as apprv_borrower_security_interest_amount','form_c_aproval_mdls.borrower_guarantee_amt as apprv_borrwer_gurantee_amount','form_c_aproval_mdls.guarantor_claim_amount as apprv_guaranter_claim_amount','form_c_aproval_mdls.guarantor_security_interest_amount as apprv_gurantor_security_interest_amount','form_c_aproval_mdls.guarantor_gaurantee_amt as apprv_guranter_gurantee_amount','form_c_aproval_mdls.guarantor_principal_borrower as apprv_guranter_principle_amunt','form_c_aproval_mdls.financial_claim_amt as financial_claimed_amount','form_c_aproval_mdls.claim_nature','form_c_aproval_mdls.approved_total_amount','form_c_aproval_mdls.rejected_total_amount','form_c_aproval_mdls.pending_total_amount','form_c_aproval_mdls.security_interest','form_c_aproval_mdls.guarantee_amt','form_c_aproval_mdls.related_party','form_c_aproval_mdls.voting_shares','form_c_aproval_mdls.contingent_amt','form_c_aproval_mdls.mutual_dues','form_c_aproval_mdls.reason');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('finanicial_creditor_form_c_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('finanicial_creditor_form_c_mdls.irp', user_type()->sub_user);
+                    		}
 
-	->where(['finanicial_creditor_form_c_mdls.company' => $company, 'finanicial_creditor_form_c_mdls.submitted' => 1, 'finanicial_creditor_form_c_mdls.formType' => 'latest','form_c_aproval_mdls.formType'=>'latest','form_c_aproval_mdls.claim_nature'=>1,'form_c_aproval_mdls.status'=>1])
+	$data = $data->where(['finanicial_creditor_form_c_mdls.company' => $company, 'finanicial_creditor_form_c_mdls.submitted' => 1, 'finanicial_creditor_form_c_mdls.formType' => 'latest','form_c_aproval_mdls.formType'=>'latest','form_c_aproval_mdls.claim_nature'=>1,'form_c_aproval_mdls.status'=>1])
 	->get();
 
 $secntionDt = [];		
@@ -630,9 +848,17 @@ if($form=='form-c-unsecured')
 	
 	//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
 	
-	->select('finanicial_creditor_form_c_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_c_aproval_mdls.borrower_claim_amount as apprv_borrower_claim_amount','form_c_aproval_mdls.borrower_security_interest_amount as apprv_borrower_security_interest_amount','form_c_aproval_mdls.borrower_guarantee_amt as apprv_borrwer_gurantee_amount','form_c_aproval_mdls.guarantor_claim_amount as apprv_guaranter_claim_amount','form_c_aproval_mdls.guarantor_security_interest_amount as apprv_gurantor_security_interest_amount','form_c_aproval_mdls.guarantor_gaurantee_amt as apprv_guranter_gurantee_amount','form_c_aproval_mdls.guarantor_principal_borrower as apprv_guranter_principle_amunt','form_c_aproval_mdls.financial_claim_amt as financial_claimed_amount','form_c_aproval_mdls.claim_nature','form_c_aproval_mdls.approved_total_amount','form_c_aproval_mdls.rejected_total_amount','form_c_aproval_mdls.pending_total_amount','form_c_aproval_mdls.security_interest','form_c_aproval_mdls.guarantee_amt','form_c_aproval_mdls.related_party','form_c_aproval_mdls.voting_shares','form_c_aproval_mdls.contingent_amt','form_c_aproval_mdls.mutual_dues','form_c_aproval_mdls.reason')
+	->select('finanicial_creditor_form_c_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_c_aproval_mdls.borrower_claim_amount as apprv_borrower_claim_amount','form_c_aproval_mdls.borrower_security_interest_amount as apprv_borrower_security_interest_amount','form_c_aproval_mdls.borrower_guarantee_amt as apprv_borrwer_gurantee_amount','form_c_aproval_mdls.guarantor_claim_amount as apprv_guaranter_claim_amount','form_c_aproval_mdls.guarantor_security_interest_amount as apprv_gurantor_security_interest_amount','form_c_aproval_mdls.guarantor_gaurantee_amt as apprv_guranter_gurantee_amount','form_c_aproval_mdls.guarantor_principal_borrower as apprv_guranter_principle_amunt','form_c_aproval_mdls.financial_claim_amt as financial_claimed_amount','form_c_aproval_mdls.claim_nature','form_c_aproval_mdls.approved_total_amount','form_c_aproval_mdls.rejected_total_amount','form_c_aproval_mdls.pending_total_amount','form_c_aproval_mdls.security_interest','form_c_aproval_mdls.guarantee_amt','form_c_aproval_mdls.related_party','form_c_aproval_mdls.voting_shares','form_c_aproval_mdls.contingent_amt','form_c_aproval_mdls.mutual_dues','form_c_aproval_mdls.reason');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('finanicial_creditor_form_c_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('finanicial_creditor_form_c_mdls.irp', user_type()->sub_user);
+                    		}
 
-	->where(['finanicial_creditor_form_c_mdls.company' => $company, 'finanicial_creditor_form_c_mdls.submitted' => 1, 'finanicial_creditor_form_c_mdls.formType' => 'latest','form_c_aproval_mdls.formType'=>'latest','form_c_aproval_mdls.claim_nature'=>2,'form_c_aproval_mdls.status'=>1])
+	$data = $data->where(['finanicial_creditor_form_c_mdls.company' => $company, 'finanicial_creditor_form_c_mdls.submitted' => 1, 'finanicial_creditor_form_c_mdls.formType' => 'latest','form_c_aproval_mdls.formType'=>'latest','form_c_aproval_mdls.claim_nature'=>2,'form_c_aproval_mdls.status'=>1])
 	->get();
 
 $secntionDt = [];		
@@ -679,11 +905,14 @@ if($form=='form-b-government-dues')
 		
 		->select('operational_creditor_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_b_approval_mdls.total as total_amount','form_b_approval_mdls.approved_total_amount as approved_total_amount','form_b_approval_mdls.rejected_principle_amt as rejected_principle_amount','form_b_approval_mdls.rejected_interest_amt as rejected_interest_amount','form_b_approval_mdls.claim_nature','form_b_approval_mdls.related_party','form_b_approval_mdls.voting_shares','form_b_approval_mdls.contingent_amt','form_b_approval_mdls.mutual_dues','form_b_approval_mdls.pending_total_amount','form_b_approval_mdls.rejected_total_amount','form_b_approval_mdls.reason','form_b_approval_mdls.dept','form_b_approval_mdls.govt');
 
-		if (userType()->user_type==2)
-              {  
-                $data = $data->where('operational_creditor_mdls.irp',Session::get('admin_id'));
-
-              }  
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('operational_creditor_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('operational_creditor_mdls.irp', user_type()->sub_user);
+                    		}
 		
 	$data =	$data->where(['operational_creditor_mdls.company' => $company, 'operational_creditor_mdls.submitted' => 1, 'operational_creditor_mdls.formType' => 'latest','form_b_approval_mdls.formType'=>'latest','form_b_approval_mdls.claim_nature'=>'govern'])
 		->get();
@@ -726,11 +955,19 @@ if($form=='form-b-other-than-government-dues')
 		->leftjoin('form_b_approval_mdls', 'form_b_approval_mdls.form_b_id', '=', 'operational_creditor_mdls.form_b_selected_id', 'form_b_approval_mdls.user_id', '=', 'operational_creditor_mdls.user_id')
 		//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
 		
-		->select('operational_creditor_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_b_approval_mdls.total as total_amount','form_b_approval_mdls.approved_total_amount as approved_total_amount','form_b_approval_mdls.rejected_principle_amt as rejected_principle_amount','form_b_approval_mdls.rejected_interest_amt as rejected_interest_amount','form_b_approval_mdls.claim_nature','form_b_approval_mdls.related_party','form_b_approval_mdls.voting_shares','form_b_approval_mdls.contingent_amt','form_b_approval_mdls.mutual_dues','form_b_approval_mdls.pending_total_amount','form_b_approval_mdls.rejected_total_amount','form_b_approval_mdls.reason','form_b_approval_mdls.security_interest','form_b_approval_mdls.guarantee_amt')
+		->select('operational_creditor_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_b_approval_mdls.total as total_amount','form_b_approval_mdls.approved_total_amount as approved_total_amount','form_b_approval_mdls.rejected_principle_amt as rejected_principle_amount','form_b_approval_mdls.rejected_interest_amt as rejected_interest_amount','form_b_approval_mdls.claim_nature','form_b_approval_mdls.related_party','form_b_approval_mdls.voting_shares','form_b_approval_mdls.contingent_amt','form_b_approval_mdls.mutual_dues','form_b_approval_mdls.pending_total_amount','form_b_approval_mdls.rejected_total_amount','form_b_approval_mdls.reason','form_b_approval_mdls.security_interest','form_b_approval_mdls.guarantee_amt');
 
+		if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('operational_creditor_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('operational_creditor_mdls.irp', user_type()->sub_user);
+                    		}
 		
 		
-		->where(['operational_creditor_mdls.company' => $company, 'operational_creditor_mdls.submitted' => 1, 'operational_creditor_mdls.formType' => 'latest','form_b_approval_mdls.formType'=>'latest','form_b_approval_mdls.claim_nature'=>'other'])
+		$data = $data->where(['operational_creditor_mdls.company' => $company, 'operational_creditor_mdls.submitted' => 1, 'operational_creditor_mdls.formType' => 'latest','form_b_approval_mdls.formType'=>'latest','form_b_approval_mdls.claim_nature'=>'other'])
 		->get();
 
 $secntionDt = [];		
@@ -771,8 +1008,16 @@ if($form=='form-f-other-than-financial-creditor')
 	//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
 	->leftjoin('form_f_approval_mdls', 'form_f_approval_mdls.form_f_id', '=', 'other_creditor_form_f_mdls.form_f_selected_id', 'form_f_approval_mdls.user_id', '=', 'other_creditor_form_f_mdls.user_id')
 	->select('other_creditor_form_f_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','other_creditor_form_f_mdls.fc_name as neme','form_f_approval_mdls.approved_total_amount','form_f_approval_mdls.claim_nature','form_f_approval_mdls.security_interest','form_f_approval_mdls.guarantee_amt','form_f_approval_mdls.related_party','form_f_approval_mdls.contingent_amt','form_f_approval_mdls.mutual_dues','form_f_approval_mdls.rejected_total_amount','form_f_approval_mdls.pending_total_amount',
-	'form_f_approval_mdls.reason')
-	->where(['other_creditor_form_f_mdls.company' => $company, 'other_creditor_form_f_mdls.submitted' => 1, 'other_creditor_form_f_mdls.formType' => 'latest','form_f_approval_mdls.formType'=>'latest'])
+	'form_f_approval_mdls.reason');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('other_creditor_form_f_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('other_creditor_form_f_mdls.irp', user_type()->sub_user);
+                    		}
+	$data = $data->where(['other_creditor_form_f_mdls.company' => $company, 'other_creditor_form_f_mdls.submitted' => 1, 'other_creditor_form_f_mdls.formType' => 'latest','form_f_approval_mdls.formType'=>'latest'])
 	->get();
 
 $secntionDt = [];		
@@ -815,9 +1060,17 @@ if($form=='form-d-workmen')
 	// ->leftjoin('user_mdls', 'user_mdls.id', '=', 'fm.user_id')
 	->leftjoin('form_d_aproval_mdls as apr', 'apr.form_d_id', '=', 'fm.form_d_selected_id', 'apr.user_id', '=', 'fm.user_id')
 	
-	->select('fm.name_in_block_letter as neme', 'apr.total as total_amount', 'apr.approved_total_amount as approved_total_amount','apr.security_interest as security_interest','apr.guarantee_amt as guarantee_amt','apr.related_party as related_party', 'apr.voting_shares as voting_shares','apr.contingent_amt as contingent_amt','apr.mutual_dues as mutual_dues','apr.pending_total_amount as pending_total_amount','apr.rejected_total_amount as rejected_total_amount','apr.reason as reason', 'fm.date as date')
+	->select('fm.name_in_block_letter as neme', 'apr.total as total_amount', 'apr.approved_total_amount as approved_total_amount','apr.security_interest as security_interest','apr.guarantee_amt as guarantee_amt','apr.related_party as related_party', 'apr.voting_shares as voting_shares','apr.contingent_amt as contingent_amt','apr.mutual_dues as mutual_dues','apr.pending_total_amount as pending_total_amount','apr.rejected_total_amount as rejected_total_amount','apr.reason as reason', 'fm.date as date');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('fm.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('fm.irp', user_type()->sub_user);
+                    		}
 	
-	->where(['fm.company' => $company, 'fm.submitted' => 1, 'fm.formType' => 'latest','apr.formType' => 'latest','apr.claim_nature'=>'workmen'])
+	$data = $data->where(['fm.company' => $company, 'fm.submitted' => 1, 'fm.formType' => 'latest','apr.formType' => 'latest','apr.claim_nature'=>'workmen'])
 	->get();
 
 
@@ -827,9 +1080,17 @@ if($form=='form-d-workmen')
 	 ->leftjoin('user_mdls', 'user_mdls.id', '=', 'fm.user_id')
 	->leftjoin('form_e_approval_mdls as apr', 'apr.form_e_id', '=', 'fm.form_e_selected_id', 'apr.user_id', '=', 'fm.user_id')
 	
-	->select('user_mdls.name as neme', 'apr.claim_amt as total_amount', 'apr.approved_total_amount as approved_total_amount','apr.security_interest as security_interest','apr.guarantee_amt as guarantee_amt','apr.related_party as related_party', 'apr.voting_shares as voting_shares','apr.contingent_amt as contingent_amt','apr.mutual_dues as mutual_dues','apr.pending_total_amount as pending_total_amount','apr.rejected_total_amount as rejected_total_amount','apr.reason as reason', 'fm.date as date')
+	->select('user_mdls.name as neme', 'apr.claim_amt as total_amount', 'apr.approved_total_amount as approved_total_amount','apr.security_interest as security_interest','apr.guarantee_amt as guarantee_amt','apr.related_party as related_party', 'apr.voting_shares as voting_shares','apr.contingent_amt as contingent_amt','apr.mutual_dues as mutual_dues','apr.pending_total_amount as pending_total_amount','apr.rejected_total_amount as rejected_total_amount','apr.reason as reason', 'fm.date as date');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('fm.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('fm.irp', user_type()->sub_user);
+                    		}
 	
-	->where(['fm.company' => $company, 'fm.submitted' => 1, 'fm.formType' => 'latest','apr.formType' => 'latest','emp.emp_type'=>'workman'])
+	$data2  =$data->where(['fm.company' => $company, 'fm.submitted' => 1, 'fm.formType' => 'latest','apr.formType' => 'latest','emp.emp_type'=>'workman'])
 	->get();
 
 
@@ -888,8 +1149,16 @@ if($form=='form-d-employee')
 	//->leftjoin('form_b_declaration_table_mdls', 'form_b_declaration_table_mdls.form_b_id', '=', 'operational_creditor_mdls.id')
 	->leftjoin('form_d_aproval_mdls', 'form_d_aproval_mdls.form_d_id', '=', 'form_d_mdls.form_d_selected_id', 'form_d_aproval_mdls.user_id', '=', 'form_d_mdls.user_id')
 	->select('form_d_mdls.*', 'company_dtls.name', 'general_info_mdls.first_name', 'user_mdls.name as user_name','form_d_mdls.name as neme','form_d_aproval_mdls.approved_principle_amt','form_d_aproval_mdls.approved_interest_amt as approved_interest_amount','form_d_aproval_mdls.approved_total_amount','form_d_aproval_mdls.claim_nature','form_d_aproval_mdls.security_interest','form_d_aproval_mdls.guarantee_amt','form_d_aproval_mdls.related_party',
-	'form_d_aproval_mdls.voting_shares','form_d_aproval_mdls.contingent_amt','form_d_aproval_mdls.mutual_dues','form_d_aproval_mdls.pending_total_amount','form_d_aproval_mdls.rejected_total_amount','form_d_aproval_mdls.reason')
-	->where(['form_d_mdls.company' => $company, 'form_d_mdls.submitted' => 1, 'form_d_mdls.formType' => 'latest','form_d_aproval_mdls.formType' => 'latest','form_d_aproval_mdls.claim_nature'=>'employee'])
+	'form_d_aproval_mdls.voting_shares','form_d_aproval_mdls.contingent_amt','form_d_aproval_mdls.mutual_dues','form_d_aproval_mdls.pending_total_amount','form_d_aproval_mdls.rejected_total_amount','form_d_aproval_mdls.reason');
+	if (userType()->user_type==2) 
+                    		{
+                    $data = $data->where('form_d_mdls.irp', user_type()->id);			
+                    		}
+                    		elseif (userType()->user_type==4) 
+                    		{
+                    $data = $data->where('form_d_mdls.irp', user_type()->sub_user);
+                    		}
+	$data = $data->where(['form_d_mdls.company' => $company, 'form_d_mdls.submitted' => 1, 'form_d_mdls.formType' => 'latest','form_d_aproval_mdls.formType' => 'latest','form_d_aproval_mdls.claim_nature'=>'employee'])
 	->get();
 
 $secntionDt = [];		

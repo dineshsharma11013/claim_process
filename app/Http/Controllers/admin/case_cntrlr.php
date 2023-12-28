@@ -574,17 +574,24 @@ class case_cntrlr extends Controller
     
     function formReport($id)
     {
-      $company = DB::table('form_a_mdls as fmA')->where([['fmA.status','=',1],['fmA.deleted','=',2]])
-          ->leftJoin('company_dtls as com', 'com.id','=', 'fmA.company_id');
-            if (userType()->user_type==2)
-            {
-              $company = $company->where('fmA.user_id',userType()->id)->where('fmA.company_id',$id);
-            }
-    $company =  $company->groupBy('fmA.company_id', 'com.name')
-          ->orderBy('com.id', 'desc')
-          ->pluck('com.name', 'fmA.company_id as id');
+    //   $company = DB::table('form_a_mdls as fmA')->where([['fmA.status','=',1],['fmA.deleted','=',2]])
+    //       ->leftJoin('company_dtls as com', 'com.id','=', 'fmA.company_id');
+    //         if (userType()->user_type==2)
+    //         {
+    //           $company = $company->where('fmA.user_id',userType()->id)->where('fmA.company_id',$id);
+    //         }
+    // $company =  $company->groupBy('fmA.company_id', 'com.name')
+    //       ->orderBy('com.id', 'desc')
+    //       ->pluck('com.name', 'fmA.company_id as id');
+
+      $company = DB::table('company_dtls')->where('id',$id)->pluck('name', 'id');
 
 
+
+    // echo "<pre>";
+    // echo print_r($company);
+    // echo "</pre>";      
+    // die();
   //  dd($company);die();     
     
     $jsl =  bPath().'/'.Config::get('site.general');
@@ -595,16 +602,17 @@ class case_cntrlr extends Controller
 
     function formGenerateReport($id)
     {
-      $company = DB::table('form_a_mdls as fmA')->where([['fmA.status','=',1],['fmA.deleted','=',2]])
-          ->leftJoin('company_dtls as com', 'com.id','=', 'fmA.company_id');
-            if (userType()->user_type==2)
-            {
-              $company = $company->where('fmA.user_id',userType()->id)->where('fmA.company_id',$id);
-            }
-    $company =  $company->groupBy('fmA.company_id', 'com.name')
-          ->orderBy('com.id', 'desc')
-          ->pluck('com.name', 'fmA.company_id as id');
+    //   $company = DB::table('form_a_mdls as fmA')->where([['fmA.status','=',1],['fmA.deleted','=',2]])
+    //       ->leftJoin('company_dtls as com', 'com.id','=', 'fmA.company_id');
+    //         if (userType()->user_type==2)
+    //         {
+    //           $company = $company->where('fmA.user_id',userType()->id)->where('fmA.company_id',$id);
+    //         }
+    // $company =  $company->groupBy('fmA.company_id', 'com.name')
+    //       ->orderBy('com.id', 'desc')
+    //       ->pluck('com.name', 'fmA.company_id as id');
 
+      $company = DB::table('company_dtls')->where('id',$id)->pluck('name', 'id');
     
         $jsl =  bPath().'/'.Config::get('site.general');
         //dd(userType()->id);die();
@@ -614,17 +622,17 @@ class case_cntrlr extends Controller
 
     function formAnnexureReport($id)
     {
-      $company = DB::table('form_a_mdls as fmA')->where([['fmA.status','=',1],['fmA.deleted','=',2]])
-          ->leftJoin('company_dtls as com', 'com.id','=', 'fmA.company_id');
-            if (userType()->user_type==2)
-            {
-              $company = $company->where('fmA.user_id',userType()->id)->where('fmA.company_id',$id);
-            }
-      $company =  $company->groupBy('fmA.company_id', 'com.name')
-          ->orderBy('com.id', 'desc')
-          ->pluck('com.name', 'fmA.company_id as id');
+      // $company = DB::table('form_a_mdls as fmA')->where([['fmA.status','=',1],['fmA.deleted','=',2]])
+      //     ->leftJoin('company_dtls as com', 'com.id','=', 'fmA.company_id');
+      //       if (userType()->user_type==2)
+      //       {
+      //         $company = $company->where('fmA.user_id',userType()->id)->where('fmA.company_id',$id);
+      //       }
+      // $company =  $company->groupBy('fmA.company_id', 'com.name')
+      //     ->orderBy('com.id', 'desc')
+      //     ->pluck('com.name', 'fmA.company_id as id');
 
-  
+    $company = DB::table('company_dtls')->where('id',$id)->pluck('name', 'id');
     $jsl =  bPath().'/'.Config::get('site.general');
     
     //dd($company);die();

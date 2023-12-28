@@ -16,7 +16,7 @@
        <!--  <li class="header">NAVIGATION</li>
          -->
         
-        <li class=""><a href="{{url(admin().'/')}}"><i class="fa fa-dashboard"></i> Dashboard </a></li>
+        <li class=""><a href="{{url(admin().'/')}}"><i class="fa fa-dashboard"></i> Dashboard {{Session::get('admin_id')}}</a></li>
         <li class=""><a href="{{url(admin().'/general-info')}}"><i class="fa fa-circle-o text-aqua"></i> Profile </a></li>
 
 
