@@ -18,7 +18,7 @@ class publishCntrlr extends Controller
     function publications(Request $req)
     {
          $data = DB::table('publication_category');
-                  if (userType()->user_type==2 && userType()->sub_user=='') 
+                  if (userType()->user_type==2 && userType()->sub_user=='')
                   {
               $data =  $data->where(['created_by_id'=>Session::get('admin_id')]);
                   }
