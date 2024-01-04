@@ -555,12 +555,17 @@ function loginUser(Request $request)
     
         $companies = DB::table('company_dtls')->select('id','name')->get();  
 
+
+        $ip_company = DB::table('company_dtls')->where(['user_id'=>Session('admin_id')])->get();
+        //  $encorporation_date = $ip_company->start_date;
+$timeline_dtls = DB::table('time_line')->where('timeline_day','!=',NULL)->get();
+
         // echo "<pre>";
-        //   print_r($assignDetails);
+        //   print_r($timeline_dtls);
         //   echo "</pre>";
         //   die();
 
-      return view('admin.dashboard', compact("fd", "companies", "users", "rect", "total_rc", "a_vl"));
+      return view('admin.dashboard', compact("fd", "timeline_dtls","ip_company", "companies", "users", "rect", "total_rc", "a_vl"));
     }
     elseif (userType()->user_type==4)
               {
