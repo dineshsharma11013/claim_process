@@ -26,13 +26,10 @@
               <h3 class="box-title">COC Meeting Details</h3>
               
           <div class="box-tools pull-right">
-                  @foreach(getCompanyDetails() as $iv)
-          @if($iv->id == $id)
-          <a href="{{url(admin().'/dashboard-user/'.$id)}}" class="text text-info" style="font-weight: bold;font-size: 16px;text-transform: uppercase;float: right;">{{$iv->name}}</a>
-           
-          @endif
-        @endforeach 
-           <button type='button' class='btn btn-primary' id="on_cha" style="float:right;margin-right: 25px;" onClick="show_form(1)">Add COC Meeting</button>
+              
+
+           <button type='button' class='btn btn-primary' id="on_cha" style="float:right;" onClick="show_form(1)">Add COC Meeting</button>
+           <a href="{{url(admin().'/dashboard-user/'.$id)}}" class="text text-info" style="font-weight: bold;font-size: 16px;text-transform: uppercase;float: right;margin-right: 10px;">{{compny($id)->name}}</a>
           </div>
         </div>
         <!-- /.box-header -->
@@ -44,7 +41,8 @@
           <!--  -->
             
             <div class="col-md-12">
-              
+             
+
                 <div class="form-group col-md-6">
                   <label for="exampleInputEmail1">Name <span class="required_cls">*</span></label>
                   <input type="hidden" name="comp_id" id="comp_id" class="form-control" value="{{$id}}" autocomplete="off">
@@ -117,6 +115,11 @@
                 <thead>
                 <tr>
                   <th>S. No.</th>
+                  @if(userType()->user_type==2)
+                <th>Team Name</th>
+                @elseif(userType()->user_type==4)
+                <th>Added By</th>
+                @endif
                   <th>name</th>
                 <th>Document</th>
                 <th>Type</th>
@@ -136,6 +139,21 @@
     <!-- Display data here -->
     <tr>
         <td>{{$sno++}}</td>
+        @if(userType()->user_type==2 && userType()->id==$item->ip_id)
+        <td>
+          @if(userType()->id!=$item->created_by)
+          {{userInfo($item->created_by)->first_name}}
+          @endif
+        </td>
+        @elseif(userType()->user_type==4 && userType()->sub_user==$item->ip_id)
+         <td>
+
+          {{userInfo($item->created_by)->first_name}}
+          
+         </td> 
+        @endif
+
+        
         <td>{{$item->pdf_name }}</td>
          <td>
           @if(!empty($item->pdf))

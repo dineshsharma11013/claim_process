@@ -24,17 +24,19 @@
         <div class="box-header with-border">
           
               <h3 class="box-title">Court Details</h3>
-                @foreach(getCompanyDetails() as $iv)
+                <!-- @foreach(getCompanyDetails() as $iv)
           @if($iv->id == $id)
           <a href="{{url(admin().'/dashboard-user/'.$id)}}" class="text text-info" style="font-weight: bold;font-size: 16px;text-transform: uppercase;float: right;">{{$iv->name}}</a>
            
           @endif
-        @endforeach 
+        @endforeach -->
+
+        
+         
            
-               <a href="{{url(admin().'/add_nclt/'.$id)}}" class="btn btn-primary" style="
-    float: right;
-    margin-right: 20px;
-">Add Court</a>
+               <a href="{{url(admin().'/add_nclt/'.$id)}}" class="btn btn-primary" style="float: right;">Add Court</a>
+          <a href="{{url(admin().'/dashboard-user/'.$id)}}" class="text text-info" style="font-weight: bold;margin-right: 10px;font-size: 16px;text-transform: uppercase;float: right;">{{compny($id)->name}}</a>
+
           <div class="box-tools pull-right">
              
                @if(userType()->user_type==1)
@@ -98,6 +100,11 @@
                 <thead>
                 <tr>
                 <th>S. No.</th>
+                @if(userType()->user_type==2)
+                <th>Team Name</th>
+                @elseif(userType()->user_type==4)
+                <th>Added By</th>
+                @endif
                 <th>Pdf name</th>
                 <th>Document</th>
                 <th>For Against</th>
@@ -111,17 +118,32 @@
                 <?php 
                 $sno=1;
                 ?>
-              @foreach ($data as $item)
+              @forelse ($data as $item)
     <!-- Display data here -->
     <tr>
         <td>{{$sno++}}</td>
+        
+        @if(userType()->user_type==2 && userType()->id==$item->ip_id)
+        <td>
+          @if(userType()->id!=$item->created_by)
+          {{userInfo($item->created_by)->first_name}}
+          @endif
+        </td>
+        @elseif(userType()->user_type==4 && userType()->sub_user==$item->ip_id)
+         <td>
+
+          {{userInfo($item->created_by)->first_name}}
+          
+         </td> 
+        @endif
+
         <td>{{$item->pdf_name }}</td>
          <td>
           @if(!empty($item->pdf))
                     @if(file_exists(publicP() . '/nclt_pdf/'.$item->pdf))
                      <a href="{{ asset('public/nclt_pdf/'.$item->pdf) }}" target="_blank"> View document</a>
                     @endif 
-
+                    @endif
          
         </td>
         
@@ -137,9 +159,17 @@
 
        <!--   <a href="{{ route('delete_report_pdf', ['id' => $item->id]) }}" class='btn btn-danger'>Delete</a> -->
        </td>
-       @endif
+       
         </tr>
-@endforeach
+        @empty
+        <tr>
+          <td>{{Config::get('site.no_data')}}</td>
+          
+          <td></td>
+          
+          <td></td><td></td><td></td><td></td><td></td>
+        </tr>
+@endforelse
             </tbody>
               </table>
             </div>

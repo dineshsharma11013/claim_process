@@ -279,7 +279,7 @@ class case_cntrlr extends Controller
                     ->leftJoin('general_info_mdls as ip','ip.id','=', 'formA.user_id')
                     ->where([['fmB.submitted','=',1],['fmB.status','=',1]]); 
                     
-                    if (userType()->user_type==2) 
+                    if (userType()->user_type==2 || userType()->user_type==4) 
                     {
                       if (userType()->sub_user=='') 
                       {
@@ -287,9 +287,10 @@ class case_cntrlr extends Controller
                       }
                       elseif (userType()->sub_user!='') 
                       {
-                         $usrs = $usrs->where('fmB.irp', userType()->sub_user); 
+                         $usrs = $usrs->where('fmB.irp', userType()->sub_user)->where('company', $id); 
                       }
                     }
+
           $usrs = $usrs->select('fmB.claimant_name','fmB.id','fmB.company as company_id','fmB.irp as ip_id','fmB.ar','fmB.user_id','fmB.form_type','fmB.created_at','fmB.updated_at','usr.name','usr.email','usr.mobile','usr.unique_id','comp.name as company', 'ip.first_name as ip')
                     ->orderBy('id','desc')
                     ->get();
@@ -327,7 +328,7 @@ class case_cntrlr extends Controller
                     ->leftJoin('general_info_mdls as ip','ip.id','=', 'formA.user_id')
                     ->where([['fmB.submitted','=',1],['fmB.status','=',1]]); 
                 
-                if (userType()->user_type==2) 
+                if (userType()->user_type==2 || userType()->user_type==4) 
                     {
                       if (userType()->sub_user=='') 
                       {
@@ -384,7 +385,7 @@ class case_cntrlr extends Controller
                     ->leftJoin('company_dtls as comp', 'comp.id','=','fmB.company')
                     ->leftJoin('general_info_mdls as ip','ip.id','=', 'fmB.irp')
                     ->where([['fmB.submitted','=',1],['fmB.status','=',1]]); 
-                    if (userType()->user_type==2) 
+                    if (userType()->user_type==2 || userType()->user_type==4) 
                     {
                       if (userType()->sub_user=='') 
                       {
@@ -392,7 +393,7 @@ class case_cntrlr extends Controller
                       }
                       elseif (userType()->sub_user!='') 
                       {
-                         $usrs = $usrs->where('fmB.irp', userType()->sub_user); 
+                         $usrs = $usrs->where('fmB.irp', userType()->sub_user)->where('fmB.company',$id); 
                       }
                     } 
              $usrs = $usrs->select('fmB.id','fmB.user_id','fmB.form_type','fmB.created_at','fmB.updated_at','fmB.name','fmB.operational_creditor_signature','usr.email','usr.mobile','usr.unique_id','fmB.ar','comp.name as company', 'ip.first_name as ip')
@@ -438,7 +439,7 @@ class case_cntrlr extends Controller
                     ->leftJoin('company_dtls as comp', 'comp.id','=','fmB.company')
                     ->leftJoin('general_info_mdls as ip','ip.id','=', 'formA.user_id')
                     ->where([['fmB.submitted','=',1],['fmB.status','=',1]]);
-                     if (userType()->user_type==2) 
+                     if (userType()->user_type==2 || userType()->user_type==4) 
                     {
                       if (userType()->sub_user=='') 
                       {
@@ -446,7 +447,7 @@ class case_cntrlr extends Controller
                       }
                       elseif (userType()->sub_user!='') 
                       {
-                         $usrs = $usrs->where('fmB.irp', userType()->sub_user); 
+                         $usrs = $usrs->where('fmB.irp', userType()->sub_user)->where('fmB.company',$id); 
                       }
                     }
           $usrs = $usrs->select('fmB.id','fmB.user_id','fmB.form_type','fmB.created_at','fmB.updated_at','usr.name','usr.email','usr.mobile','usr.unique_id','fmB.ar', 'comp.name as company', 'formA.name as ip')
@@ -491,7 +492,7 @@ class case_cntrlr extends Controller
                     ->leftJoin('company_dtls as comp', 'comp.id','=','fmB.company')
                     ->leftJoin('general_info_mdls as ip','ip.id','=', 'formA.user_id')
                     ->where([['fmB.submitted','=',1],['fmB.status','=',1]]);
-                    if (userType()->user_type==2) 
+                    if (userType()->user_type==2 || userType()->user_type==4) 
                     {
                       if (userType()->sub_user=='') 
                       {
@@ -499,7 +500,7 @@ class case_cntrlr extends Controller
                       }
                       elseif (userType()->sub_user!='') 
                       {
-                         $usrs = $usrs->where('fmB.irp', userType()->sub_user); 
+                         $usrs = $usrs->where('fmB.irp', userType()->sub_user)->where('fmB.company',$id); 
                       }
                     }  
                  $usrs = $usrs->select('fmB.id','fmB.user_id', 'fmB.form_f_selected_id', 'fmB.status' ,'fmB.form_type','fmB.created_at','fmB.updated_at','fmB.signing_person_name','usr.name','usr.email','usr.mobile','usr.unique_id','fmB.ar', 'comp.name as company', 'formA.name as ip')
@@ -547,7 +548,7 @@ class case_cntrlr extends Controller
                     ->leftJoin('company_dtls as comp', 'comp.id','=','formA.company_id')
                     ->leftJoin('general_info_mdls as ip','ip.id','=', 'formA.user_id')
                     ->where([['fmB.submitted','=',1],['fmB.status','=',1]]);
-                    if (userType()->user_type==2) 
+                    if (userType()->user_type==2 || userType()->user_type==4) 
                     {
                       if (userType()->sub_user=='') 
                       {
@@ -555,7 +556,7 @@ class case_cntrlr extends Controller
                       }
                       elseif (userType()->sub_user!='') 
                       {
-                         $usrs = $usrs->where('fmB.irp', userType()->sub_user); 
+                         $usrs = $usrs->where('fmB.irp', userType()->sub_user)->where('fmB.company',$id); 
                       }
                     }  
                   $usrs = $usrs->select('fmB.id','fmB.user_id','fmB.form_type','fmB.created_at','fmB.signing_person_name','fmB.updated_at','usr.name','usr.email','usr.mobile','usr.unique_id','fmB.ar', 'comp.name as company', 'ip.first_name as ip')
@@ -643,9 +644,24 @@ class case_cntrlr extends Controller
     
     function coc_meeting_pdf(Request $request , $id)
     {
-      $jsl =  bPath().'/'.Config::get('site.general');
+        $jsl =  bPath().'/'.Config::get('site.general');
         $a_vl =  Config::get('site.reportPdf');
-        $data = DB::table('coc_meeting_pdf')->where(['ip_id'=>session('admin_id'),'company_id'=>$id, 'deleted_by'=>''])->get();
+        $data = DB::table('coc_meeting_pdf');
+                if (userType()->user_type== 1) 
+                  {
+            $data = $data->where(['company_id'=>$id, 'deleted_by'=>'']);       
+                  }
+                  if (userType()->user_type == 2) 
+                  {
+            $data = $data->where(['ip_id'=>session('admin_id'),'company_id'=>$id, 'deleted_by'=>'']);       
+                  }
+                  if (userType()->user_type == 4) 
+                  {
+            $data = $data->where(['ip_id'=>ip(),'company_id'=>$id, 'deleted_by'=>'']);       
+                  }
+
+        $data = $data->select('id', 'type', 'coc_meeting_number', 'coc_meeting_date', 'pdf_name', 'pdf', 'ip_id','created_by')->orderBy('id', 'desc')->get();          
+
         //dd($data);die();
 
         return view('admin.coc_meeting_pdf' , compact('data','id', 'jsl', 'a_vl')); 
@@ -679,7 +695,7 @@ class case_cntrlr extends Controller
                 'coc_meeting_date'=>$request->date_of_coc,
                 'pdf' => $file,
                 'company_id'=>$request->comp_id,
-                'ip_id'=>session('admin_id'),
+                'ip_id'=>ip(),
                 'rem_addr'=> $request->ip(),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => "",
@@ -808,8 +824,22 @@ class case_cntrlr extends Controller
           
         $jsl =  bPath().'/'.Config::get('site.general');
         $a_vl =  Config::get('site.reportPdf');
-        // $data = DB::table('nclt_pdf_by_ip')->where(['ip_id'=>session('admin_id'),'company_id'=>$id, 'deleted_by'=>''])->get();
-        $data = DB::table('nclt_pdf_by_ip')->where(['deleted_by'=>''])->get();
+        $data = DB::table('nclt_pdf_by_ip');
+                  if (userType()->user_type== 1) 
+                  {
+            $data = $data->where(['company_id'=>$id, 'deleted_by'=>'']);       
+                  }
+                  if (userType()->user_type == 2) 
+                  {
+            $data = $data->where(['ip_id'=>session('admin_id'),'company_id'=>$id, 'deleted_by'=>'']);       
+                  }
+                  if (userType()->user_type == 4) 
+                  {
+            $data = $data->where(['ip_id'=>userType()->sub_user,'company_id'=>$id, 'deleted_by'=>'']);       
+                  }
+                  
+            $data = $data->select('id', 'pdf_name', 'pdf', 'company_id', 'ip_id', 'for_against', 'type', 'created_by')->orderBy('id', 'desc')->get();
+        
         return view('admin.report_pdf' , compact('data','id', 'jsl', 'a_vl'));  
     }
     
@@ -837,7 +867,7 @@ class case_cntrlr extends Controller
                 'pdf_name' =>$request->name,
                 'pdf' => $file,
                 'company_id'=>$request->comp_id ?? '',
-                'ip_id'=>session('admin_id'),
+                'ip_id'=> ip(),
                 'rem_addr'=> $request->ip(),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => "",
@@ -1106,11 +1136,11 @@ $file_path = $file->move(public_path('nclt_pdf/'),$filename);
     
 DB::table('nclt_pdf_by_ip')->insert([
     
-        'for_against' =>$request->for_against,
-        'type' =>$request->type,
-        'pdf_name' =>$request->pdf_neme,
-          'pdf' => $filename,
-          'ip_id'=>session('admin_id'),
+        'for_against' =>$request->for_against ?? '',
+        'type' =>$request->type ?? '',
+        'pdf_name' =>$request->pdf_neme ?? '',
+          'pdf' => $filename ?? '',
+          'ip_id'=>userType()->sub_user!='' ? userType()->sub_user : userType()->id,
           'company_id'=>$request->comp_id,
           'rem_addr'=>$request->ip(),
           'created_at'=>date('Y-m-d h:i:s'),

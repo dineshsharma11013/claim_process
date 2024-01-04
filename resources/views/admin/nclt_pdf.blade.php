@@ -25,7 +25,8 @@
           
               <h3 class="box-title">Court</h3>
           <div class="box-tools pull-right">
-           
+            <button type="button" onclick="window.history.back();" class="{{Config::get('site.addDataBtn')}}" style="float: right;margin: inherit;">Back</button>
+           <a href="{{url(admin().'/dashboard-user/'.$id)}}" class="text text-info" style="font-weight: bold;font-size: 16px;text-transform: uppercase;float: right;margin-right: 10px;">{{compny($id)->name}}</a>
           </div>
         </div>
         <!-- /.box-header -->
@@ -203,8 +204,7 @@
 
 
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script> 
-<script src="{{ asset('public/access/datepicker/bootstrap-datetimepicker.min.js') }}"></script> 
+
 <script>
     // Add JavaScript to hide the success message after 5 seconds
     window.onload = function() {
@@ -227,37 +227,6 @@
 
 <script type="text/javascript">
 //  $('#irp').select2();
-
-
-
-  $('#insolvency_commencement_date').datetimepicker({
-    format: 'YYYY-MM-DD'
-  }).on("dp.change", function (e) {
-     //console.log(e.date._d);
-    
-     var startDt = $('#insolvency_commencement_date').val(); 
-      
-     var mm2Dt = moment(startDt).add('days', 14);
-     var cl2Dt = mm2Dt.format('YYYY-MM-DD');  
-
-     var mmDt = moment(startDt).add('days', 180);
-     var clDt = mmDt.format('YYYY-MM-DD');
-     $("#end_date").val(clDt);
-     $("#claim_filing_date").val(cl2Dt);
-
-
-    
-});
-  $('#claim_filing_date').datetimepicker({
-    format: 'YYYY-MM-DD'
-  });
-
-  $('#start_date').datetimepicker({
-    format: 'YYYY-MM-DD'
-  });
-  $('#end_date').datetimepicker({
-    format: 'YYYY-MM-DD'
-  });
 
 
 

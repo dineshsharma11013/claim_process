@@ -40,6 +40,18 @@ function userType()
 		return $user;	
 }
 
+function userInfo($id)
+{
+  $user = DB::table('general_info_mdls')->select('user_type', 'sub_user', 'id', 'username','first_name')->where('id', $id)->first();
+    return $user; 
+}
+
+function ip()
+{
+  $res = userType()->sub_user!='' ? userType()->sub_user : userType()->id;
+  return $res;
+}
+
 function ipType()
 {
 	if (userType()->user_type == 2 && userType()->sub_user!='') 
@@ -300,7 +312,11 @@ function getUserFormDetails($id)
 
     }
 
-
+    function compny($id)
+    {
+      $com = DB::table('company_dtls')->select('id', 'name', 'email', 'address')->where('id',$id)->first();
+      return $com;
+    }
 
     function getCompanyList()
     {
