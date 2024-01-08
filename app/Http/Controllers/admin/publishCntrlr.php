@@ -88,7 +88,7 @@ else
     function publicationShow($id)
     {
       $data = DB::table('publication_category');
-      if (userType()->user_type==2 && userType()->sub_user=='') 
+      if (userType()->user_type==2) 
                   {
               $data =  $data->where(['created_by_id'=>Session::get('admin_id')]);
                   }
@@ -99,35 +99,34 @@ else
              $res['subCAt'][$list->id] = DB::table('publication_category_document')->where(['category_id'=>$list->id])->get();
             }
         
-           $data2 = DB::table('blank_document')->where(['ip_id'=>''])->orderBy('id', 'desc')->get();
+           $data2 = DB::table('blank_document')->where([['case_type','=','cirp'],['ip_id','=',''],['deleted_by','=',''],['company_id','=','']])->orderBy('id', 'desc')->get();
             
-            if(userType()->user_type==2)
+            if(userType()->user_type==2 || userType()->user_type==4)
             {
            
-           $upload_docs = DB::table('blank_document')->where(['ip_id'=>Session::get('admin_id'),'company_id'=>$id])->orderBy('id','desc')->get();
+            $upload_docs = DB::table('blank_document')->where(['ip_id'=>ip(),'company_id'=>$id,'deleted_by'=>''])->orderBy('id','desc')->get();
             }
            
-            if(userType()->user_type==1)
-            {
-              $upload_docs = DB::table('blank_document')->where('ip_id', '!=', '')->where(['company_id'=>$id])->orderBy('id', 'desc')->get();
+            // if(userType()->user_type==1)
+            // {
+            //   $upload_docs = DB::table('blank_document')->where('ip_id', '!=', '')->where(['company_id'=>$id])->orderBy('id', 'desc')->get();
+            // }
+  
+        // $saved_publication = DB::table('saved_publication');
+        //     if (userType()->user_type==2) 
+        //           {
+        //       $saved_publication = $saved_publication->where([['created_by','=',Session::get('admin_id')],['company_id','=','']]);
+        //           }
+        //     if($id) 
+        //     {
+        //       $saved_publication = $saved_publication->orWhere([['created_by','=',Session::get('admin_id')],['company_id','=',$id]]);
+        //     }      
 
-
-            }
-  $saved_publication = DB::table('saved_publication');
-            if (userType()->user_type==2 && userType()->sub_user=='') 
-                  {
-              $saved_publication = $saved_publication->where([['created_by','=',Session::get('admin_id')],['company_id','=','']]);
-                  }
-            if($id) 
-            {
-              $saved_publication = $saved_publication->orWhere([['created_by','=',Session::get('admin_id')],['company_id','=',$id]]);
-            }      
-
-      $saved_publication = $saved_publication->orderBy('id', 'desc')->get();
+      //$saved_publication = $saved_publication->orderBy('id', 'desc')->get();
 
       $publication_category = DB::table('publication_category')->where(['created_by_id'=>Session::get('admin_id')])->orderBy('id', 'desc')->get();
 
-        return view('admin.publicationDetails',compact('data','upload_docs','data2','saved_publication','publication_category', 'id'));
+        return view('admin.publicationDetails',compact('data','upload_docs','data2','publication_category', 'id'));
      
     }
 
@@ -163,9 +162,13 @@ DB::table('publication_category')->where(['id'=>$id])->delete();
     
     function delete_blank_format(Request $request , $id)
     {
-  DB::table('blank_document')->where(['id'=>$id])->delete();
-     $request->session()->flash('success', 'Data Deleted successfully');
 
+     DB::table('blank_document')->where(['id'=>$req->doc_id])->update([
+          'deleted_by'=>Session::get('admin_id'),
+          'deleted_at'=>date('Y-m-d H:i:s')
+        ]);
+
+     $request->session()->flash('success', 'Data Deleted successfully');
 return back();
     }
     
@@ -175,7 +178,7 @@ return back();
      $a_vl =  Config::get('site.sabredgeValidate');
      
      $ips = DB::table('general_info_mdls')->where([['status','=', 1],['deleted_by','=',''], ['flag','=',2], ['user_type', '=', 2], ['sub_user', '=', '']])->orderBy('first_name')->pluck('first_name','id');
-      $data = DB::table('blank_document')->where(['create_by_id'=>Session::get('admin_id')])->get();
+      $data = DB::table('blank_document')->where(['created_by'=>Session::get('admin_id')])->get();
      $company = companyDtl::where([['status','=', 1],['deleted','=',2]])->orderBy('name')->pluck('name','id');
          return view('admin.blank_formats' , compact('data', 'a_vl', 'ips', 'company'));
         
@@ -200,26 +203,23 @@ $duplicate = DB::table('blank_document')
 
 if(!$duplicate)
 {
-     $filename = time().'.'.$file->getClientOriginalName();
-  $file_path = $file->move(public_path('format_document/'),$filename);
-    
-$usrtype= DB::table('general_info_mdls')->where(['id'=>Session('admin_id')])->first();
-if($usrtype->user_type ==2)
-{
-  $usr_iid = Session('admin_id');
-}
-else
-{
-  $usr_iid ="";
-}
+     $filename = time().'.'.$file->getClientOriginalExtension();
+    $file_path = $file->move(public_path('format_document/'),$filename);
 
 DB::table('blank_document')->insert([
-        'company_id'=>$request->company_name ?? '',
-        'document_name' => $request->format_name,
-        'document_type'=>$request->dcmt_type,
+          'case_type'=>$request->case_type ?? '',
+          'document_type'=>$request->dcmt_type,
+          'ip_id'=>ip(),
+          'company_id'=>$request->company_name ?? '',
+          'document_name' => $request->format_name,
           'document' => $filename,
-          'ip_id'=>$usr_iid,
-          'create_by_id'=>Session::get('admin_id')
+          'rem_addr'=>$request->ip(),
+          'created_by'=>Session::get('admin_id'),
+          'updated_by'=>'',
+          'deleted_by'=>'',
+          'created_at'=>date('Y-m-d H:i:s'),
+          'updated_at'=>'',
+          'deleted_at'=>''
     ]);
  
     $request->session()->flash('success', 'Data saved successfully');
@@ -380,13 +380,19 @@ if($req->hasFile('dcmt'))
       $updater = DB::table('blank_document')->where(['id'=>$req->doc_id])->update([
           'document_name'=>$req->format_name,
           'document_type'=>$req->dcmt_type,
-          'document'=>$customFilename]);
+          'document'=>$customFilename,
+          'updated_by'=>Session::get('admin_id'),
+          'updated_at'=>date('Y-m-d H:i:s')
+        ]);
 }
 else
 {
      $updater = DB::table('blank_document')->where(['id'=>$req->doc_id])->update([
           'document_name'=>$req->format_name,
-          'document_type'=>$req->dcmt_type]);
+          'document_type'=>$req->dcmt_type,
+          'updated_by'=>Session::get('admin_id'),
+          'updated_at'=>date('Y-m-d H:i:s')
+        ]);
 }
     if($updater)
     {

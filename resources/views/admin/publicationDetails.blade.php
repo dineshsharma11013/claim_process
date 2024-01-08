@@ -115,12 +115,12 @@
    <thead>
        <tr>
 <th>Sno</th>
+<th>Name</th>
 <th>List of document</th>
 <th>Document</th>
 <th>Action</th>
-</tr>
+</tr>   
    </thead>     
-
 <tbody>
     @php
     $sno=1;
@@ -129,6 +129,12 @@
     @foreach($upload_docs as $list2)
 <tr>
     <td>{{$sno++}}</td>
+     <td>
+
+       
+        {{userInfo($list2->created_by)->first_name}}
+       
+     </td>
      <td>{{$list2->document_name}}</td>
       <td><a href="{{asset('public/format_document/'.$list2->document)}}" class='btn btn-primary' target="_blank">View</a></td>
        <td><a href="#" onClick="get_val('{{$list2->document_name}}','{{asset('public/format_document/'.$list2->document)}}','{{$list2->document_type}}','{{$list2->id}}')" class='btn btn-warning' data-toggle="modal" data-target="#myModal2">Edit</a> <a href="{{url(admin().'/delete_blank_format/'.$list2->id)}}" class='btn btn-danger'>Delete</a></td>

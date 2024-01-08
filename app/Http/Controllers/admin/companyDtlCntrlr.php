@@ -197,6 +197,7 @@ function viewtimeline(Request $req , $id)
     $encorporation_date = $cmpy_dtl->start_date;
    
     $timline_data = DB::table('time_line')->get();
+   // dd($encorporation_date);die();
     return view('admin.viewcompany_time' , compact('timline_data','encorporation_date'));
     
 }

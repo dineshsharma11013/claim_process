@@ -52,9 +52,9 @@
               
               <div class="form-group col-md-6">
                   <label for="exampleInputEmail1">Case Type <span class="required_cls">*</span></label>
-                  {!! Form::select('ip_name', ['irp'=>'CIRP', 'liquidation'=>'Liquidation'], null, ['placeholder'=>'Please Select' , 'id' => 'ip_name','class'=>'form-control', 'required']) !!}
+                  {!! Form::select('case_type', ['cirp'=>'CIRP', 'liquidation'=>'Liquidation'], null, ['placeholder'=>'Please Select' , 'id' => 'case_type','class'=>'form-control', 'required']) !!}
                   
-                  <div class="error_cls" id="error_ip_name"></div>
+                  <div class="error_cls" id="error_case_type"></div>
                 </div>
 
               <div class="form-group col-md-6">

@@ -569,20 +569,30 @@ $timeline_dtls = DB::table('time_line')->where('timeline_day','!=',NULL)->get();
     }
     elseif (userType()->user_type==4)
               {
-          $users = DB::table('todo_mdls as td')
+        //   $users = DB::table('todo_mdls as td')
+        //       ->leftJoin('general_info_mdls as gen', 'gen.id', '=', 'td.assigned_to');
+          
+        //   $users = $users->where([['td.created_by_id', '=', userType()->id], ['td.deleted_by', '=', '']]);              
+        //   $users =  $users->select('td.id as id', 'gen.first_name as name', 'td.task', 'td.comapny', 'td.cirp_name', 'td.message', 'td.status', 'td.start_date', 'td.created_at', 'td.updated_at', 'td.end_date', 'td.start_at', 'td.end_at')->orderBy('td.id', 'desc')->paginate();
+    
+        // $companies = DB::table('company_dtls')->select('id','name')->get();  
+
+         $users = DB::table('todo_mdls as td')
               ->leftJoin('general_info_mdls as gen', 'gen.id', '=', 'td.assigned_to');
           // $users = $users->where([['td.created_by_id', '=', Session::get('admin_id')], ['td.deleted_by', '=', ''], ['td.task_type', '=', 'latest'],['td.end_date', '>=', $today]]);
-          $users = $users->where([['td.created_by_id', '=', userType()->id], ['td.deleted_by', '=', '']]);              
+          $users = $users->where([['td.created_by_id', '=', ip()], ['td.deleted_by', '=', ''], ['td.task_type', '=', 'latest'], ['td.status', '!=', 'completed']]);              
           $users =  $users->select('td.id as id', 'gen.first_name as name', 'td.task', 'td.comapny', 'td.cirp_name', 'td.message', 'td.status', 'td.start_date', 'td.created_at', 'td.updated_at', 'td.end_date', 'td.start_at', 'td.end_at')->orderBy('td.id', 'desc')->paginate();
     
         $companies = DB::table('company_dtls')->select('id','name')->get();  
 
-        // echo "<pre>";
-        //   print_r($assignDetails);
-        //   echo "</pre>";
-        //   die();
 
-      return view('admin.dashboard', compact("fd", "companies", "users", "rect", "total_rc"));
+        $ip_company = DB::table('company_dtls')->where(['user_id'=>Session('admin_id')])->get();
+        //  $encorporation_date = $ip_company->start_date;
+      $timeline_dtls = DB::table('time_line')->where('timeline_day','!=',NULL)->get();       
+
+
+
+      return view('admin.dashboard', compact("fd", "timeline_dtls","ip_company", "companies", "users", "rect", "total_rc", "a_vl"));
     }
     else
     {
