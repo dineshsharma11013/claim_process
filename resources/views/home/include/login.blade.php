@@ -164,7 +164,7 @@ button#signInBtn:hover{
                       <div class="error_cls" id="error_password"></div>
                      </div>
 
-                     <button type="button" id="signUpBtn" onclick="signUp('signUpForm','signUpBtn','/sign-up',userSignUp)" class="btn btn btn-primary btn-flat m-b-30 m-t-30 mb-2">Submit</button>
+                     <button type="button" id="signUpBtn" onclick="signUp('signUpForm','signUpBtn','/sign-up',userSignUp)" class="btn btn btn-primary btn-flat m-b-30 m-t-30 mb-2" style="background:#223544;border-color:#223544">Submit</button>
 
                      <div class="col-md-12" id="errMessage_signUpForm">
                        
@@ -224,7 +224,7 @@ button#signInBtn:hover{
                       <div class="error_cls" id="error_unique_id"></div>
                      </div>
 
-                     <button type="button" id="forgotPasswordBtn" onclick="forgotPassword('forgotPasswordForm','forgotPasswordBtn','/forgot-password',forgotPasswordCheck)" class="btn btn btn-primary btn-flat m-b-30 m-t-30 mb-2">Send</button>
+                     <button type="button" id="forgotPasswordBtn" onclick="forgotPassword('forgotPasswordForm','forgotPasswordBtn','/forgot-password',forgotPasswordCheck)" class="btn btn btn-primary btn-flat m-b-30 m-t-30 mb-2" style="background:#223544;border-color:#223544">Send</button>
                       
 
 
