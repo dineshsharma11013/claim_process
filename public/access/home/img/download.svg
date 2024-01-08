@@ -1,1 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="437" fill="none"><g clip-path="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2000 378.968s-285.12-85.434-663.89-20.468c-378.763 64.966-665.356 90.522-922.915 65C155.635 397.978-1.389 294.667-1.389 294.667V0H2000v378.968Z" fill="#e4ebe7"/><mask id="b" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="-2" y="0" width="2003" height="437" fill="#FA6900"><path fill-rule="evenodd" clip-rule="evenodd" d="M2000 378.968s-299.99-64.966-678.74 0C942.492 443.934 667.282 447.522 409.722 422 152.163 396.478-1.388 294.667-1.388 294.667V0H2000v378.968Z" fill="#E0E4CC"/></mask></g><g clip-path="url(#c)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2000 363.968s-285.12-85.434-663.89-20.468c-378.763 64.966-665.356 90.522-922.915 65C155.635 382.978-1.389 279.667-1.389 279.667V-15H2000v378.968Z" fill="#69D2E7"/><mask id="d" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="-2" y="-15" width="2003" height="437" fill="#FA6900"><path fill-rule="evenodd" clip-rule="evenodd" d="M2000 363.968s-299.99-64.966-678.74 0C942.492 428.934 667.282 432.522 409.722 407 152.163 381.478-1.388 279.667-1.388 279.667V-15H2000v378.968Z" fill="#E0E4CC"/></mask></g><defs fill="#FA6900"><clipPath id="a" fill="#FA6900"><path fill="#E0E4CC" d="M0 0h2000v437H0z"/></clipPath><clipPath id="c" fill="#FA6900"><path fill="#E0E4CC" transform="translate(0 -15)" d="M0 0h2000v437H0z"/></clipPath></defs></svg>
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 437" width="2000" height="437">
+	<title>download2-svg</title>
+	<defs>
+		<clipPath clipPathUnits="userSpaceOnUse" id="cp1">
+			<path d="m0 0h2000v437h-2000z"/>
+		</clipPath>
+		<clipPath clipPathUnits="userSpaceOnUse" id="cp2">
+			<path d="m0-15h2000v437h-2000z"/>
+		</clipPath>
+	</defs>
+	<style>
+		.s0 { fill: #e4ebe7 } 
+		.s1 { fill: #d2daff } 
+	</style>
+	<g id="Clip-Path" clip-path="url(#cp1)">
+		<g id="Layer">
+			<path id="Layer" fill-rule="evenodd" class="s0" d="m2000 379c0 0-285.1-85.5-663.9-20.5-378.8 65-665.3 90.5-922.9 65-257.6-25.5-414.6-128.8-414.6-128.8v-294.7h2001.4z"/>
+		</g>
+	</g>
+	<g id="Clip-Path" clip-path="url(#cp2)">
+		<g id="Layer">
+			<path id="Layer" fill-rule="evenodd" class="s1" d="m2000 364c0 0-285.1-85.5-663.9-20.5-378.8 65-665.3 90.5-922.9 65-257.6-25.5-414.6-128.8-414.6-128.8v-294.7h2001.4z"/>
+		</g>
+	</g>
+</svg>

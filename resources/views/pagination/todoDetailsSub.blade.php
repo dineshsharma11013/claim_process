@@ -58,7 +58,10 @@
 
 <div class="table-responsive">
 <table class="table">
-  <tr><th>Company name</th>
+
+  <tr>
+
+  <th>Company name</th>
   <th>Section Regulation</th>
   <th>Activity Step</th>
 

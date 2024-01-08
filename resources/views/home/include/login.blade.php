@@ -1,4 +1,29 @@
 <!-- Modal -->
+<style>
+    button#signInBtn {
+    background: #223544;
+    border-color:#223544;
+}
+button#signInBtn:hover{
+	color: #fff;
+	background-color: #304352;
+	border-color: #304352;
+}
+.form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+}
+.form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #223645;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(243 250 255 / 65%);
+}
+</style>
 
  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
@@ -47,7 +72,7 @@
                      </div>
 
 
-                     <button type="button" id="signInBtn" onclick="signIn('loginForm','signInBtn','/sign-in',userSignIn)" class="btn btn btn-primary btn-flat m-b-30 m-t-30 mb-2">Sign In</button>
+                     <button type="button" id="signInBtn" onclick="signIn('loginForm','signInBtn','/sign-in',userSignIn)" class="btn btn-sm btn-primary text-center btn-flat m-b-30 m-t-30 mb-2">Sign In</button>
 
                 <div class="col-md-12" id="errMessage_loginForm"></div>
 
@@ -62,15 +87,15 @@
 
                     <p class="mb-0 me-2">Don't have an account?</p>
 
-                    <a href="#" id='createnew' class="" style="color:red">Create new</a>
+                    <a href="#" id='createnew' class="" style="color:#012270;,font-weight:bold">Create new</a>
 
                   </div>
 
 
 
-                       <div class="modal-footer">
+                       <div class="modal-footer p-0">
 
-                          <a href="#" id='forgotpassword' >Forgot Password?</a>
+                          <a href="#" id='forgotpassword' style="color:#1487c2" >Forgot Password?</a>
 
                        </div>
 

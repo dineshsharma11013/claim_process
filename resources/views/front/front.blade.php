@@ -32,29 +32,31 @@ body{
 .sticky + .content {
   padding-top: 60px;
 }
-.btn-green{
+.btn-danger{
 	color: #fff;
-	background-color: #309db3;
-	border-color: #309db3;
+    background-color: #223544;
+    border-color: #223544;
 }
-.btn-green:hover{
+.btn-danger:hover{
 	color: #fff;
-	background-color: #137b90;
-	border-color: #137b90;
+	background-color: #304352;
+	border-color: #304352;
 }
   .error_cls{
+  color: red;
+ font-size:13px;
+ }
+.required_cls{
+color:red;
+ }
+ .top-nav {
+    background-color: #223645;
+}
+.navbar-brand {
+    font-weight: 700;
+    font-size: 22px;
+}
 
-      color: red;
-
-      font-size:13px;
-
-   }
-
-   .required_cls{
-
-     color:red;
-
-   }
 </style>
 
   <body data-bs-spy="scroll" data-bs-target="#navbar-example">
@@ -82,7 +84,7 @@ $signUp = "userSignUp";
 
 @endif
 	
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background:#309db3;"id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background:#db2352;"id="navbar">
       <div class="container">
         <a class="navbar-brand" href="{{url('/')}}">CLAIMPROCESS</a>
 			<div class=" mx-2">   
@@ -120,7 +122,7 @@ $signUp = "userSignUp";
 		  <li class="nav-item"><a href="{{url('/dashboard')}}" class="nav-link text-white">Dashboard</a></li>
 		<li class="nav-item"><a href="{{route('signOut')}}" class="nav-link text-white">Sign Out</a></li>
 		  @else
-<li class="nav-item"><a href="javascript:void(0);" id="loginBtn" onclick="loginFmOn()" class="nav-link text-white">Login</a></li>
+<li class="nav-item"><a href="javascript:void(0);" id="loginBtn" onclick="loginFmOn()" class="btn btn-sm btn-danger text-white">Login</a></li>
 @endif
                                
           </ul> 
@@ -139,7 +141,7 @@ $signUp = "userSignUp";
          </div>
          <div class='col-md-11 pt-3 text-white px-5'>
          <marquee>
-		 <h5 class="text-white">IP Supports is Committed to Provide, Efficient and easy to use e-auction Platform for insolvency professionals, investors and establishments for direction</h5>
+		 <h5 style="color:#223645!important;">IP Supports is Committed to Provide, Efficient and easy to use e-auction Platform for insolvency professionals, investors and establishments for direction</h5>
 		 </marquee>
          </div>
         </div>
@@ -160,7 +162,7 @@ $signUp = "userSignUp";
 			 Designation - {{$lv->designation}} <br>
 			 Start - {{dateFm($lv->corporate_debtor_insolvency_date)}} <br>
 			 End - {{dateFm($lv->insolvency_closing_date)}}  <br>
-			 <a class="btn btn-sm btn-green" href="{{url('form-a/'.$lv->unique_id)}}" target="_blank" role="button" style="padding:4px 15px;">View</a>
+			 <a class="btn btn-sm btn-danger" href="{{url('form-a/'.$lv->unique_id)}}" target="_blank" role="button" style="padding:4px 15px;">View</a>
 			</p>
 			@empty
 			<p style="color: #263e89;font-weight: 600;text-align:center;" >No Claim</p>
@@ -195,8 +197,8 @@ $signUp = "userSignUp";
 
 			<div class="d-flex w-100 justify-content-center align-items-center m-2">
 
-			<button type="submit" class="btn btn-green" id='sbt_serch'>Submit</button>
-			<button type="reset" class="btn btn-green mx-2">Clear</button>	
+			<button type="submit" class="btn btn-danger" id='sbt_serch'>Submit</button>
+			<button type="reset" class="btn btn-danger mx-2">Clear</button>	
 			
 
 			</div>
@@ -231,8 +233,8 @@ $signUp = "userSignUp";
    <!-- bottom scroll -->
      <div class="row">
         <div class="col-md-12 mb-5">
-            <div class="d-flex justify-content-between align-items-center breaking-news bg-black">
-                <div class="d-flex flex-row flex-grow-1 flex-fill justify-content-center btn-green py-2 text-white px-1 news"><span class="d-flex align-items-center">&nbsp;Important</span></div>
+            <div class="d-flex justify-content-between align-items-center breaking-news " style="background:#223645;">
+                <div class="d-flex flex-row flex-grow-1 flex-fill justify-content-center btn-danger py-2 text-white px-1 news"><span class="d-flex align-items-center">&nbsp;Important</span></div>
                 <marquee class="news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"> <a href="#" style="color:white;font-weight:bold">There is no upcoming claim </a>
                 </marquee>
             </div>
@@ -319,10 +321,10 @@ $signUp = "userSignUp";
 			   
 
   <!-- Footer -->
-  <footer class="text-center text-lg-start text-white p-2" style="background:#309db3;" >
+  <footer class="text-center text-lg-start text-white p-2" style="background:#223645;" >
 	<!-- Section: Links  -->
     <section class="footer_bottom">
-      <div class="container text-center text-md-start mt-5" style="background: #309db3; ">
+      <div class="container text-center text-md-start mt-5" style="background: #223645; ">
         <!-- Grid row -->
         <div class="row mt-3">
           <!-- Grid column -->
@@ -331,7 +333,7 @@ $signUp = "userSignUp";
             <h6 class="text-uppercase fw-bold text-white" style='font-family:arial;'>E-Auction</h6>
             <hr
                 class="mb-4 mt-0 d-inline-block mx-auto"
-                style="width: 60px; background-color:white; height: 2px"
+                style="width: 60px; background-color:#db2352; height: 2px;opacity: 1;"
                 />
             <p class="p-0" style='font-family:arial;'>IP Supports is Committed to Provide, Efficient and easy to use e-auction Platform for insolvency professionals, investors and establishments for directing the E-Auction of the resources of the organization under Liquidator as commanded under Insolvency and Bankruptcy Code , 2016 and different Laws.
             </p>
@@ -343,7 +345,7 @@ $signUp = "userSignUp";
             <h6 class="text-uppercase fw-bold text-white" style='font-family:arial;'>Useful links</h6>
             <hr
                 class="mb-4 mt-0 d-inline-block mx-auto"
-                style="width: 60px; background-color:white; height: 2px"
+                 style="width: 60px; background-color:#db2352; height: 2px;opacity: 1;"
                 />
             <p class="p-0 m-0" style='font-family:arial;'>
               <a href="contact.html" class="text-white">Contact Us</a>
@@ -362,7 +364,7 @@ $signUp = "userSignUp";
           <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold text-white" style='font-family:arial;'>Contact</h6>
-            <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color:white; height:2px;"/>
+            <hr class="mb-4 mt-0 d-inline-block mx-auto"   style="width: 60px; background-color:#db2352; height: 2px;opacity: 1;"/>
             <p class="mt-0 p-0" style='font-family:arial;'><i class='bx bxs-home-alt-2 mr-3'></i> 3208, 2nd Floor Mahindra Park, Near Rani Bagh Delhi-110034</p>
             <p class="mt-0 p-0" style='font-family:arial;'><i class='bx bxs-envelope' ></i> mail@ipsupport.in</p>
             <p class="mt-0 p-0" style='font-family:arial;'><i class='bx bxs-phone'></i> +91-9350444666 </p>
@@ -374,7 +376,7 @@ $signUp = "userSignUp";
       </div>
     </section>
     <!-- Section: Links  -->
-<hr class="mb-4 mt-0 d-inline-block mx-auto mb-0" style="width: 100%; background-color:white; height: 2px">
+<hr class="mb-1 mt-0 d-inline-block mx-auto " style="width: 100%; background-color:white; height: 2px">
     <!-- Copyright -->
     <div class="text-center p-3" style="font-family:arial; border-top:1">
       © Copyright Sabre-Edge All Rights Reserved
