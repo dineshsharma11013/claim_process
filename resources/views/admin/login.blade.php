@@ -30,15 +30,43 @@
    .required_cls{
      color:red;
    }
+       .btn-primary {
+    background-color: #db2352;
+    border-color: #db2352;
+}
+ .btn-primary:hover {
+    background-color: #db2352d6;
+    border-color: #db2352d6;
+}
+.login-page, .register-page {
+    background: #ccd4f836;
+}
+
+.login-box-body, .register-box-body {
+        border: 2px solid #223544;
+               background: #223544;
+}
+.form-control:focus {
+    border-color: #a9b1b6;
+    box-shadow: none;
+}
+.login-box-body .form-control-feedback, .register-box-body .form-control-feedback {
+    /*color: #223544;*/
+    color:#db2352;
+}
+.form-control {
+   
+    border-color: #5b5d60;
+}
 </style>
 
 <div class="login-box">
   <div class="login-logo">
-    <b>Claim</b>Process
+    <b style="color:#db2352"> Claim </b> Process
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session {{Session::get('admin_id')}}</p>
+    <h4 class="login-box-msg" style="color: #ffffffe8;">Sign in to start your session {{Session::get('admin_id')}}</h4>
 
     <form id="loginFrm">
       <div class="form-group has-feedback">
@@ -60,7 +88,7 @@
       </div>
     </form><br>
     @if($url == 'ip')
-    <p>Don't have account ? <a href="{{url(admin().'/sign-up')}}" class="text-center">Sign Up Here</a></p>
+    <p style="color:#fff;">Don't have account ? <a href="{{url(admin().'/sign-up')}}" class="text-center" style="color:#72afd2">Sign Up Here</a></p>
     @endif
     <div id="errorLogin"></div>
   </div>
