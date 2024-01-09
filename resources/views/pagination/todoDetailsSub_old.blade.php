@@ -56,7 +56,84 @@
 </div>  
 
 
+<div class="table-responsive">
+<table class="table">
 
+  <tr>
+
+  <th>Company name</th>
+  <th>Section Regulation</th>
+  <th>Activity Step</th>
+
+  <th>Due Date</th>
+</tr>
+
+  @foreach($ip_company as $cmpy_list)
+@foreach($timeline_dtls as $timeline_list)
+
+
+<?php 
+$timel_day =  $timeline_list->timeline_day;
+
+$cmp_start_Date = $cmpy_list->start_date;
+
+ 
+// Add days to date and display it
+$mydate= date('Y-m-d', strtotime($cmp_start_Date. ' + '.$timel_day.' days'));
+
+// if($mydate==date('Y-m-d'))
+// {
+//   echo  $cmpy_list->name;
+// }
+
+
+
+?>
+<?php if($mydate==date('Y-m-d')) { ?>
+  <tr>
+
+
+<td>
+{{$cmpy_list->name}}
+</td>
+<td><?php echo $timeline_list->Section_Regulation;?></td>
+<td><?php echo $timeline_list->Activity_Steps;?></td>
+<td>{{$mydate}}</td>
+
+</tr>
+<?php }?>
+@endforeach
+@endforeach
+</table>
+</div>
+
+<script>
+$(document).ready(function () {
+
+$('#myTable th').click(function () {
+var table = $(this).closest('table');
+var rows = table.find('tbody > tr').toArray().sort(compareRows($(this).index()));
+
+
+this.asc = !this.asc;
+if (!this.asc) {
+rows = rows.reverse();
+}
+
+
+table.find('tbody').empty().append(rows);
+});
+
+
+function compareRows(index) {
+return function (a, b) {
+var valA = $(a).find('td').eq(index).text();
+var valB = $(b).find('td').eq(index).text();
+return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB);
+};
+}
+});
+</script>
 
 
 

@@ -397,6 +397,90 @@ function getUserFormDetails($id)
         return $users;
     }
 
+        function getCompanyListByIp()
+    {
+        $check = DB::table('assign_company_mdls')->where('ip_id', ip())->where('status',1)->where('deleted',2)->get();
+        $check2 = DB::table('company_dtls')->where('user_id', ip())->where('status',1)->where('insolvency_commencement_date','!=', '')->where('deleted',2)->get();
+
+        $users=[];
+
+         // echo "<pre>";
+         // echo print_r($check2);
+         // echo "</pre>";
+         // die();  
+
+        if (count($check)>0 && count($check2)>0) 
+        {
+          $data1 = DB::table('company_dtls as com')
+                    ->leftJoin('general_info_mdls as gen', 'gen.id','=','com.user_id')
+                    // ->select('com.id as id', 'com.id as company_id', 'com.name', 'com.address', 'com.created_at', 'gen.first_name', 'gen.user_type')
+                    ->select('com.id as id', 'com.name as cmpName', 'com.insolvency_commencement_date')
+                    ->where('com.status',1)
+                    ->where('com.deleted',2)
+                    ->where('com.user_id', ip())
+                    ->where('com.insolvency_commencement_date','!=', '')
+                    ->orderBy('com.id', 'desc')
+                    ->get()->toArray();
+
+
+          $data2 = DB::table('assign_company_mdls as asn')
+                    ->leftJoin('company_dtls as com', 'com.id','=','asn.company_id')
+                    ->leftJoin('general_info_mdls as gen', 'gen.id','=','asn.created_by_id')
+                    // ->select('asn.company_id as id', 'asn.id as asn_id', 'com.name', 'com.address', 'asn.created_time as created_at', 'gen.first_name', 'gen.user_type')
+                    ->select('asn.company_id as id', 'com.name as cmpName', 'com.insolvency_commencement_date')
+                    ->where('asn.status',1)
+                    ->where('asn.deleted',2)
+                    ->where('com.insolvency_commencement_date','!=', '')
+                    ->orderBy('asn.id', 'desc')
+                    ->where('asn.ip_id',ip())->get()->toArray();
+
+          $users = array_merge($data1, $data2);
+          $users = array_unique($users, SORT_REGULAR);
+          $users = array_values($users);
+                      
+        
+         // echo "<pre>";
+         // echo print_r($users);
+         // echo "</pre>";
+         // die();           
+        }
+        elseif (count($check)>0 && !count($check2)>0) 
+        {
+          $users = DB::table('assign_company_mdls as asn')
+                    ->leftJoin('company_dtls as com', 'com.id','=','asn.company_id')
+                    ->leftJoin('general_info_mdls as gen', 'gen.id','=','asn.ip_id')
+                    ->select('asn.id as id', 'asn.id as asn_id', 'com.name as cmpName', 'com.address', 'asn.created_time as created_at', 'gen.first_name', 'gen.user_type', 'com.insolvency_commencement_date')
+                    ->where('asn.status',1)
+                    ->where('com.insolvency_commencement_date','!=', '')
+                    ->where('asn.deleted',2)
+                    ->where('asn.ip_id',ip())->get()->toArray();
+
+        // echo "<pre>";
+        //  echo print_r($users);
+        //  echo "</pre>";
+        //  die();             
+        }
+        elseif (!count($check)>0 && count($check2)>0) 
+        {
+          $users = DB::table('company_dtls as com')
+                    ->leftJoin('general_info_mdls as gen', 'gen.id','=','com.user_id')
+                    ->select('com.id as id', 'com.id as company_id', 'com.name as cmpName', 'com.address', 'com.created_at', 'gen.first_name', 'gen.user_type', 'com.insolvency_commencement_date')
+                    ->where('com.status',1)
+                    ->where('com.insolvency_commencement_date','!=', '')
+                    ->where('com.deleted',2)
+                    ->where('com.user_id',ip());
+                   
+              $users = $users->orderBy('id','desc')
+                    ->get()->toArray();
+
+         //   echo "<pre>";
+         // echo print_r($users);
+         // echo "</pre>";
+         // die();           
+        }
+        return $users;
+    }
+
 
     function getCompanyDetails()
     {

@@ -547,21 +547,27 @@ function loginUser(Request $request)
 
       if (userType()->user_type==2)
               {
+          
+           $users_new = [];     
+          $mydate=date('Y-m-d');
           $users = DB::table('todo_mdls as td')
               ->leftJoin('general_info_mdls as gen', 'gen.id', '=', 'td.assigned_to');
-          // $users = $users->where([['td.created_by_id', '=', Session::get('admin_id')], ['td.deleted_by', '=', ''], ['td.task_type', '=', 'latest'],['td.end_date', '>=', $today]]);
+       
           $users = $users->where([['td.created_by_id', '=', userType()->id], ['td.deleted_by', '=', ''], ['td.task_type', '=', 'latest'], ['td.status', '!=', 'completed']]);              
           $users =  $users->select('td.id as id', 'gen.first_name as name', 'td.task', 'td.comapny', 'td.cirp_name', 'td.message', 'td.status', 'td.start_date', 'td.created_at', 'td.updated_at', 'td.end_date', 'td.start_at', 'td.end_at')->orderBy('td.id', 'desc')->paginate();
     
         $companies = DB::table('company_dtls')->select('id','name')->get();  
 
 
-        $ip_company = DB::table('company_dtls')->where(['user_id'=>Session('admin_id')])->get();
+        $ip_company = DB::table('company_dtls')->select('start_date as std')->where([['user_id','=',ip()], ['status','=',1], ['deleted_by','=',''], ['start_date','!=','']])->get();
         //  $encorporation_date = $ip_company->start_date;
-$timeline_dtls = DB::table('time_line')->where('timeline_day','!=',NULL)->get();
+        $timeline_dtls = DB::table('time_line')->select('id','Section_Regulation', 'Activity_Steps', 'timeline_day')->where('timeline_day','!=',NULL)->get();
+        
+        //echo count($timeline_dtls);die();
+
 
         // echo "<pre>";
-        //   print_r($timeline_dtls);
+        //   print_r($ip_company);
         //   echo "</pre>";
         //   die();
 
