@@ -548,7 +548,7 @@ function loginUser(Request $request)
       if (userType()->user_type==2)
               {
           
-           $users_new = [];     
+                
           $mydate=date('Y-m-d');
           $users = DB::table('todo_mdls as td')
               ->leftJoin('general_info_mdls as gen', 'gen.id', '=', 'td.assigned_to');
@@ -558,20 +558,59 @@ function loginUser(Request $request)
     
         $companies = DB::table('company_dtls')->select('id','name')->get();  
 
+        $users_new = [];
+        $ip_company = getCompanyListByIp(); 
 
-        $ip_company = DB::table('company_dtls')->select('start_date as std')->where([['user_id','=',ip()], ['status','=',1], ['deleted_by','=',''], ['start_date','!=','']])->get();
-        //  $encorporation_date = $ip_company->start_date;
-        $timeline_dtls = DB::table('time_line')->select('id','Section_Regulation', 'Activity_Steps', 'timeline_day')->where('timeline_day','!=',NULL)->get();
-        
+        $timeline_dtls = DB::table('time_line')
+                        ->select('id', 'Section_Regulation', 'Activity_Steps', 'timeline_day')
+                        ->where('timeline_day', '!=', NULL)
+                        ->get();
+
+        foreach ($ip_company as $comp) {
+    $companyDetails = [
+        'company' => $comp,
+        'timeline_details' => [],
+    ];
+
+    foreach ($timeline_dtls as $tm) {
+   
+        $newDate = date('Y-m-d', strtotime($comp->insolvency_commencement_date . ' + ' . $tm->timeline_day . ' days'));
+        $actual_date = $comp->insolvency_commencement_date;
+
+        $timelineDetails = [
+            'id' => $tm->id,
+            'Section_Regulation' => $tm->Section_Regulation,
+            'Activity_Steps' => $tm->Activity_Steps,
+            'timeline_day' => $tm->timeline_day,
+            'actual_date' => $actual_date,
+            'new_date' => $newDate
+        ];
+
+        $companyDetails['timeline_details'][] = $timelineDetails;
+    }
+
+    $users_new[] = $companyDetails;
+      } 
+      
+
+      $new_users = array_merge($users->items(), $users_new);
+
+        $new_users_paginated = new \Illuminate\Pagination\LengthAwarePaginator(
+            $new_users,
+            $users->total(),
+            $users->perPage(),
+            $users->currentPage());
+        $new_users_paginated = (object)$new_users_paginated;
+
         //echo count($timeline_dtls);die();
 
 
         // echo "<pre>";
-        //   print_r($ip_company);
+        //   print_r($new_users_paginated);
         //   echo "</pre>";
         //   die();
 
-      return view('admin.dashboard', compact("fd", "timeline_dtls","ip_company", "companies", "users", "rect", "total_rc", "a_vl"));
+      return view('admin.dashboard', compact("fd", "timeline_dtls","ip_company", "companies", "users", "rect", "total_rc", "a_vl", "new_users_paginated"));
     }
     elseif (userType()->user_type==4)
               {
