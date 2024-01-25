@@ -60,7 +60,7 @@ table {
     <tr>
       <th class="p-2" scope="row">2</th>
       <td colspan="2" class="table-active  p-2">Date of incorporation of corporate debtor</td>
-      <td class="p-2">{{$cat->incorporation_date}}</td>
+      <td class="p-2">{{datFm($cat->incorporation_date)}}</td>
     </tr>
     
     
@@ -73,8 +73,8 @@ table {
     
     <tr>
       <th class="p-2" scope="row">4</th>
-      <td colspan="2" class="table-active p-2">Limited Liability Identification No. of corporate debtor    </td>
-      <td class="p-2">data 2232</td>
+      <td colspan="2" class="table-active p-2">Corporate Identity No. / Limited Liability Identification No. of corporate debtor  </td>
+      <td class="p-2">{{$cat->corporate_debtor_identity_number}}</td>
     </tr>
     
     <tr>
@@ -86,20 +86,22 @@ table {
     <tr>
       <th class="p-2" scope="row ">6</th>
       <td colspan="2" class="table-active p-2">Insolvency commencement date in respect of corporate debtor</td>
-      <td class="p-2">{{$cat->corporate_debtor_insolvency_date}}</td>
+      <td class="p-2">{{datFm($cat->corporate_debtor_insolvency_date)}}</td>
     </tr>
     
     <tr>
       <th class="p-2" scope="row ">7</th>
-      <td colspan="2" class="table-active p-2">AEstimated date of closure of insolvency resolution process</td>
-      <td class="p-2">{{$cat->insolvency_closing_date}}</td>
+      <td colspan="2" class="table-active p-2">Estimated date of closure of insolvency resolution process</td>
+      <td class="p-2">{{datFm($cat->insolvency_closing_date)}}</td>
     </tr>
     
     
     <tr>
       <th class="p-2" scope="row ">8</th>
       <td colspan="2" class="table-active p-2">Name and registration number of the insolvency professional acting as interim resolution process </td>
-      <td class="p-2">{{$cat->insolvency_professional_name}}</td>
+      <td class="p-2">{{$cat->insolvency_professional_name}} <br>
+          {{$cat->insolvency_professional_registration_number}}
+      </td>
     </tr>
     
     
@@ -124,20 +126,45 @@ table {
     <tr>
       <th class="p-2" scope="row ">11</th>
       <td colspan="2" class="table-active p-2">Last date for submission of claims </td>
-      <td class="p-2">{{$cat->claim_last_date}}</td>
+      <td class="p-2">{{datFm($cat->claim_last_date)}}</td>
     </tr>
     
     
     <tr>
       <th class="p-2" scope="row ">12</th>
       <td colspan="2" class="table-active p-2">Classes of creditors, if any, under clause (b) of sub-section (6A) of section 21, ascertained by the interim resolution professional </td>
-      <td class="p-2">{{$cat->claim_last_date}}</td>
+      <td class="p-2">
+        @if(count($crCls)>0)
+          @foreach($crCls as $cr)
+          {{$cr->creditor_classess}}<br>
+          @endforeach
+        @endif
+      </td>
     </tr>
     
     <tr>
       <th class="p-2" scope="row ">13</th>
       <td colspan="2" class="table-active p-2">Names of Insolvency Professionals identified to act as Authorised Representative of creditors in a class (Three names for each class) </td>
-      <td class="p-2">{{$cat->claim_last_date}}</td>
+      <td class="p-2">
+        @if(count($crCls)>0)
+          @foreach($crCls as $cr)
+          @foreach($crMdl as $cm)
+            @if($cr->ar1==$cm->id)
+             1. {{$cm->name}}<br>
+                {{$cm->reg_no}}<br>
+            @endif
+            @if($cr->ar2==$cm->id)
+              {{$cm->name}}<br>
+              {{$cm->reg_no}}<br>
+            @endif
+            @if($cr->ar3==$cm->id)
+              {{$cm->name}}<br>
+              {{$cm->reg_no}}<br>
+            @endif
+          @endforeach
+          @endforeach
+        @endif
+      </td>
     </tr>
     
     <tr>
@@ -148,7 +175,11 @@ table {
                are available at: 
       </td>
       
-      <td class="p-2">{{$cat->claim_last_date}}</td>
+      <td class="p-2">{{$cat->authorized_forms}}
+        <br>
+          {{$cat->authorized_details}}
+
+      </td>
     </tr>
   </tbody>
 </table>
@@ -174,32 +205,47 @@ table {
                   <p class="fw-bold m-0"  style="font-size:14px;">AR-1  </p> 
                     <p  style="font-size:14px;">
                         
-                        @foreach($ips_nms as $nk=>$nv)
-                            @if($nk == $cls->ar1)
-                                {{$nv}}
-                            @endif
-                        @endforeach  
+                        @if(count($crCls)>0)
+          @foreach($crCls as $cr)
+          @foreach($crMdl as $cm)
+            @if($cr->ar1==$cm->id)
+              {{$cm->name}}<br>
+            @endif
+          @endforeach
+          @endforeach
+        @endif 
     
                     </p> 
                 </div>
                 <div  style="float:left; width:130px;  position:relative;">
                 <p class="fw-bold m-0"  style="font-size:14px;">AR-2  </p> 
                 <p  style="font-size:14px;">
-                @foreach($ips_nms as $nk=>$nv)
-                        @if($nk == $cls->ar2)
-                            {{$nv}}
-                        @endif
-                    @endforeach  
+                @if(count($crCls)>0)
+          @foreach($crCls as $cr)
+          @foreach($crMdl as $cm)
+           
+            @if($cr->ar2==$cm->id)
+              {{$cm->name}}<br>
+            @endif
+           
+          @endforeach
+          @endforeach
+        @endif
                 </p> 
                 </div>
                 <div  style="float:left; width:130px;  position:relative;">
                 <p class="fw-bold m-0"  style="font-size:14px;">AR-3  </p> 
                 <p  style="font-size:14px;">
-                @foreach($ips_nms as $nk=>$nv)
-                        @if($nk == $cls->ar3)
-                            {{$nv}}
-                        @endif
-                    @endforeach  
+                @if(count($crCls)>0)
+          @foreach($crCls as $cr)
+          @foreach($crMdl as $cm)
+           
+            @if($cr->ar3==$cm->id)
+              {{$cm->name}}<br>
+            @endif
+          @endforeach
+          @endforeach
+        @endif
                 </p> 
                 </div>
                 </div>
@@ -228,7 +274,7 @@ table {
                 <p>Name and Signature of Interim Resolution Professional  </p>
                 <div  style="float:left; width:130px;  position:relative;">
                 <p  style="font-size:14px; margin:0px;">
-                {{$ips->username}}
+                {{$cat->insolvency_professional_name}}
                 </p> 
                 </div>
                 
@@ -247,7 +293,7 @@ table {
                 <p>Date and Place  </p>
                 <div  style="float:left; width:130px;  position:relative;">
                 <p  style="font-size:14px; margin:0px;"> Date  </p> 
-                <p>{{$cat->date}}</p>
+                <p>{{datFm($cat->date)}}</p>
                 </div>
                 
                 <div  style="float:right; width:130px;  position:relative;">

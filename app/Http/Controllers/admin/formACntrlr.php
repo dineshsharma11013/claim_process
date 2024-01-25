@@ -27,9 +27,6 @@ class formACntrlr extends Controller
                         {
                         $results = $results->where('fA.user_id', Session::get('admin_id'));
                         }
-                        elseif (userType()->user_type==4) {
-                            $results = $results->where('fA.user_id', userType()->sub_user);
-                        }
             $results = $results->select('fA.id','com.name as cName', 'fA.name', 'fA.designation', 'fA.user_id', 'fA.corporate_debtor_insolvency_date', 'fA.insolvency_closing_date', 'fA.created_time', 'fA.update_time', 'fA.unique_id')
                     ->orderBy('fA.id', 'desc')
                     ->get();
@@ -52,7 +49,7 @@ class formACntrlr extends Controller
                 ->where([['asn.status','=',1],['asn.deleted','=',2],['asn.designation','!=','AR']])
                 ->where([['ip.status','=',1],['ip.flag','=',2]])    
                 ->orderBy('asn.id', 'desc')
-                ->select('comp.id','comp.name', 'comp.address', 'comp.insolvency_commencement_date', 'comp.nclt', 'comp.start_date', 'comp.end_date', 'comp.claim_filing_date', 'comp.order_receving_date', 'ip.first_name', 'ip.email', 'ip.address as ipAddress', 'ip.ibbi_reg_no', 'ip.profile_pic', 'asn.designation','asn.ip_id', 'asn.id as asnId')
+                ->select('comp.id','comp.name', 'comp.address', 'comp.insolvency_commencement_date', 'comp.nclt', 'comp.start_date', 'comp.end_date', 'comp.claim_filing_date', 'ip.first_name', 'ip.email', 'ip.address as ipAddress', 'ip.ibbi_reg_no', 'ip.profile_pic', 'asn.designation','asn.ip_id', 'asn.id as asnId')
                 ->first();     
 
 
@@ -118,7 +115,9 @@ class formACntrlr extends Controller
         $classes = arMdl::where('status',1)->orderBy('name')->pluck('name','id');
         $ips = generalInfoMdl::select('first_name')->where('id', Session::get('admin_id'))->first();
         
-        $ips_nms = generalInfoMdl::where([['user_type','=',2],['sub_user','=',''],['status','=',1],['flag','=',2]])->pluck('username','id');
+        //$ips_nms = generalInfoMdl::where([['user_type','=',2],['sub_user','=',''],['status','=',1],['flag','=',2]])->pluck('username','id');
+
+        $ips_nms = arMdl::where('status',1)->orderBy('name')->pluck('name','id');
 
         //$pth = publicP()."/access/media/forms/formA/";
 
@@ -236,19 +235,24 @@ class formACntrlr extends Controller
 
         try 
         {   
-           // echo $req->ip_name; die();
+            //echo count($creditor_classess); die();
+
+            // echo "<pre>";
+            // echo print_r($ar1);
+            // echo "</pre>";die();
+
             $this->insertData('form_a_mdls',$data);
                 
-            $db = DB::table('form_a_mdls')->where('status',1)->orderByDesc('id')->first();
+            $db = DB::table('form_a_mdls')->where('status',1)->orderBy('id','desc')->first();
 
           //  echo print_r($db);die();
 
-            if (count($creditor_classess)>0) 
+            if (count($ar1)>0) 
                             {
                                    
-                            for ($i=0; $i < count($creditor_classess); $i++) 
+                            for ($i=0; $i < count($ar1); $i++) 
                                 {
-                                if ($creditor_classess[$i]!="") 
+                                if ($ar1[$i]!="") 
                                 {    
 
                             $data3 = [
@@ -329,7 +333,9 @@ class formACntrlr extends Controller
 
             $ips = generalInfoMdl::select('first_name','id')->where('id', $cat->user_id)->first();
 
-            $ips_nms = generalInfoMdl::where([['user_type','=',2],['sub_user','=',''],['status','=',1],['flag','=',2]])->pluck('username','id');
+           // $ips_nms = generalInfoMdl::where([['user_type','=',2],['sub_user','=',''],['status','=',1],['flag','=',2]])->pluck('username','id');
+
+            $ips_nms = arMdl::where('status',1)->orderBy('name')->pluck('name','id');
 
             //$pth = publicP()."/access/media/forms/formA/".$cat->unique_id;
           //  dd($assign_company->id);die();

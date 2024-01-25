@@ -79,44 +79,69 @@ function getDetails(id, url, mdl)
 }
 
 
-// $(document).ready(function(){
+$(document).ready(function(){
   
-//  $(document).on('click', '.pagination a', function(event){
-//   event.preventDefault(); 
-//   var page = $(this).attr('href').split('page=')[1];
-//   //console.log(page);
-//   fetch_data(page);
-//  });
+ $(document).on('click', '.pagination a', function(event){
+  event.preventDefault(); 
+  var page = $(this).attr('href').split('page=')[1];
+  //console.log(page);
+  fetch_data(page);
+ });
 
-// function fetch_data(page)
-//  {
+function fetch_data(page)
+ {
   
-//   var path = admin_pth+'/'+'todo-pagination/fetch_data';
-//   var total_records = $("#total_records").val();
-//   var status_type = $("#status_type").val();
-//   var team = $("#team").val();
-//   var from = $("#from").val();
-//   var to = $("#to").val();
-//   var task = $("#task").val();
-//   var cid = $("#cid").val();
+  var path = admin_pth+'/'+'todo-pagination/dashboard/fetch_data';
+  var total_records = $("#total_records").val();
+  var ctgyy = $("#ctgyy").val();
+  var duration = $("#duration").val();
+  var from = $("#from").val();
+  var to = $("#to").val();
+  
 
-//   $.ajax({
-//    url:path,
-//    data:{page:page, total_records:total_records, status_type:status_type, team:team, from:from, to:to, task:task, cid:cid},
-//    success:function(data)
-//    {
-//    // console.log(data);
-//     $('#table_data').html(data);
-//    },
-//    error:function(err)
-//    {
-//     console.log(err);
-//    }
-//   });
-// }
-// })
+  $.ajax({
+   url:path,
+   data:{page:page, total_records:total_records, ctgyy:ctgyy, duration:duration, from:from, to:to},
+   success:function(data)
+   {
+    console.log(data);
+    $('#table_data').html(data);
+   },
+   error:function(err)
+   {
+    console.log(err);
+   }
+  });
+}
+})
 
 
+function getUsrInfo(total_records,ctgyy, duration, from, to)
+{  
+ 
+  var total = $("#"+total_records).val();
+  var ctgyy = $("#"+ctgyy).val();
+  var duration = $("#"+duration).val();
+  var from = $("#"+from).val();
+  var to = $("#"+to).val();
+  
+
+  var path = admin_pth+'/'+'todo-details/dashboard/fetch-data?total_record='+total+'&ctgyy='+ctgyy+'&duration='+duration+'&from='+from+'&to='+to;
+  console.log(path);
+
+  $.ajax({
+   url:path,
+   success:function(data)
+   {
+    console.log(data);
+    $('#table_data').html(data);
+   },
+   error:function(err)
+   {
+    console.log(err);
+   }
+  });
+} 
 
 
 function sortBy(nm)

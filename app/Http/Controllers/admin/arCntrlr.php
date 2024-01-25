@@ -11,43 +11,44 @@ use Session;
 class arCntrlr extends Controller
 {
     function arDetails(Request $req)
-	{
+  {
 
         $users = arMdl::select('id','name','status')
-        			->orderByDesc('id')
-        			->get();
+              ->orderByDesc('id')
+              ->get();
               
         $jsl =  bPath().'/'.Config::get('site.general');
         $a_vl =  Config::get('site.adminGeneral');
         
       
-       // dd($users);	
+       // dd($users); 
         return view('admin.arDetails',compact("users","jsl","a_vl"));
-   		
-	}
+      
+  }
 
-	function addAr(Request $req)
-	{
+  function addAr(Request $req)
+  {
         $jsl =  bPath().'/'.Config::get('site.general');
         $a_vl =  Config::get('site.arValidation');
-       // dd($users);	
-        return view('admin.add_ar',compact("jsl","a_vl"));	
-	}
+       // dd($users); 
+        return view('admin.add_ar',compact("jsl","a_vl"));  
+  }
 
-	function saveAr(Request $req)
-	{
-		$response = array();
+  function saveAr(Request $req)
+  {
+    $response = array();
         $cat = new arMdl;
         $cat->name = $req->username ?? "";
         
         $cat->user_id = Session::get('admin_id');
+        $cat->reg_no = $req->reg_no ?? "";
         $cat->rem_addr = $req->ip();
         $cat->date = date('Y-m-d');
         $cat->status= $req->status ?? "";
       
         if($cat->save())
         {
-            $response['error'] = false;	
+            $response['error'] = false; 
             $response['message'] = "AR Added Successfully";
           }
           else
@@ -57,29 +58,30 @@ class arCntrlr extends Controller
           }
         
         echo json_encode($response);
-	}
+  }
 
-	function editAr(Request $req, $id)
-	{
-		$cat = arMdl::find($id,['id','name','status']);
+  function editAr(Request $req, $id)
+  {
+    $cat = arMdl::find($id,['id','name','status','reg_no']);
         $jsl =  bPath().'/'.Config::get('site.general');
         $a_vl =  Config::get('site.arValidation');
-       // dd($cat->username);	
-        return view('admin.editAr',compact("jsl","a_vl","cat"));	
-	}
+       // dd($cat->username); 
+        return view('admin.editAr',compact("jsl","a_vl","cat"));  
+  }
 
-	function updateAr(Request $req, $id)
-	{
-		$response = array();
+  function updateAr(Request $req, $id)
+  {
+    $response = array();
         $cat = arMdl::find($id);
         
         $cat->name = $req->username ?? "";
+        $cat->reg_no = $req->reg_no ?? "";
         $cat->rem_addr = $req->ip();
         $cat->status= $req->status ?? "";
         
         if($cat->save())
         {
-            $response['error'] = false;	
+            $response['error'] = false; 
             $response['message'] = "AR Updated Successfully";
           }
           else
@@ -89,11 +91,11 @@ class arCntrlr extends Controller
           }
         
         echo json_encode($response);
-	}
+  }
 
-	function deleteAr($id)
-	{
-		$response = array();
+  function deleteAr($id)
+  {
+    $response = array();
         $cat = arMdl::find($id); 
    
         if ($cat->delete()) 
@@ -108,5 +110,5 @@ class arCntrlr extends Controller
           }
         
         echo json_encode($response);
-	}
+  }
 }

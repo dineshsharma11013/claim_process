@@ -85,9 +85,9 @@ class assignCompanyCntrlr extends Controller
     {
       $response = array();
 
-       $check = DB::table('assign_company_mdls')->where('company_id',$req->company)->where('deleted',2)->orderBy('id','desc')->first();
+       $check = DB::table('assign_company_mdls')->where('company_id',$req->company)->where('ip_id',$req->ip)->where('deleted',2)->orderBy('id','desc')->get();
 
-       if ($check->ip_id == $req->ip) 
+       if (count($check)>0) 
        {
           $response['error'] = true; 
           $response['message'] = "Company Already Assigned";         
@@ -210,10 +210,10 @@ class assignCompanyCntrlr extends Controller
         if($cat->save())
         {
 
-          if ($check) 
-          {
-            DB::table('assign_company_mdls')->where('id',$check->id)->update(['status'=>2, 'updated_by'=>Session::get('admin_id')]);
-          }
+          // if ($check) 
+          // {
+          //   DB::table('assign_company_mdls')->where('id',$check->id)->update(['status'=>2, 'updated_by'=>Session::get('admin_id')]);
+          // }
           // $cat2 = DB::table('assign_company_mdls')->where([['main_id','=',''],['update_id','=','']])->orderBy('id','desc')->first();
           // DB::table('assign_company_mdls')->where('id',$cat2->id)->update(['main_id'=>$cat2->id, 'update_id'=>$cat2->id]);
 

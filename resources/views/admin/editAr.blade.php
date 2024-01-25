@@ -17,7 +17,11 @@
         <li class="active">General Elements</li>
       </ol> -->
     </section>
-
+ @php 
+                $comp = Config::get('site.comp');
+                $sixDiv = Config::get('site.sixDiv');
+                $formMethod = 'adminGeneral';
+                @endphp
     <!-- Main content -->
     <section class="content">
       <div class="box box-default">
@@ -34,12 +38,16 @@
           <div class="row">
             
             <div class="col-md-12">
-              @php 
-                $comp = Config::get('site.comp');
-                $sixDiv = Config::get('site.sixDiv');
-                $formMethod = 'adminGeneral';
-                @endphp
+             
                 <x-input label="Name" type="text" name="username" :value="$cat->name" placeholder="Name" :comp="$comp" :colMd="$sixDiv"/>
+                
+                <x-input label="Registration No." type="text" name="reg_no"  placeholder="" :value="$cat->reg_no"  :colMd="$sixDiv"/>
+   
+              </div>
+
+
+              <div class="col-md-12">
+             
                 
                  <div class="form-group col-md-6">
                   <label for="exampleInputEmail1">Status <span class="required_cls">*</span></label>
@@ -48,7 +56,6 @@
                 </div>
    
               </div>
-
 
             <!-- /.col -->
            

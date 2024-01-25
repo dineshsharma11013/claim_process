@@ -224,7 +224,7 @@
 <script type="text/javascript">
 
 $('#order_receving_date').datetimepicker({
-    format: 'YYYY-MM-DD'
+    format: 'DD-MM-YYYY'
   }).on("dp.change", function (e) {
      console.log(e.date._d, e);
     var commencement_date = $("#insolvency_commencement_date").val();
@@ -232,10 +232,10 @@ $('#order_receving_date').datetimepicker({
      var startDt = $('#order_receving_date').val(); 
       
      var mm2Dt = moment(startDt).add('days', 14);
-     var cl2Dt = mm2Dt.format('YYYY-MM-DD');  
+     var cl2Dt = mm2Dt.format('DD-MM-YYYY');  
 
      var mmDt = moment(startDt).add('days', 180);
-     var clDt = mmDt.format('YYYY-MM-DD');
+     var clDt = mmDt.format('DD-MM-YYYY');
   
      $("#claim_filing_date").val(cl2Dt);
 
@@ -253,17 +253,17 @@ $('#order_receving_date').datetimepicker({
 
 
   $('#insolvency_commencement_date').datetimepicker({
-    format: 'YYYY-MM-DD'
+    format: 'DD-MM-YYYY'
   }).on("dp.change", function (e) {
      //console.log(e.date._d);
     
      var startDt = $('#insolvency_commencement_date').val(); 
       
      var mm2Dt = moment(startDt).add('days', 14);
-     var cl2Dt = mm2Dt.format('YYYY-MM-DD');  
+     var cl2Dt = mm2Dt.format('DD-MM-YYYY');  
 
      var mmDt = moment(startDt).add('days', 180);
-     var clDt = mmDt.format('YYYY-MM-DD');
+     var clDt = mmDt.format('DD-MM-YYYY');
      $("#end_date").val(clDt);
      $("#claim_filing_date").val(cl2Dt);
 
@@ -271,14 +271,14 @@ $('#order_receving_date').datetimepicker({
     
 });
   $('#claim_filing_date').datetimepicker({
-    format: 'YYYY-MM-DD'
+    format: 'DD-MM-YYYY'
   });
 
   $('#start_date').datetimepicker({
-    format: 'YYYY-MM-DD'
+    format: 'DD-MM-YYYY'
   });
   $('#end_date').datetimepicker({
-    format: 'YYYY-MM-DD'
+    format: 'DD-MM-YYYY'
   });
 
 </script>

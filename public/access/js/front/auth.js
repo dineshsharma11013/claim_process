@@ -647,14 +647,9 @@ function selectCompany(fm, comp, ip, div, dtls)
               <td>`+item.company+`</td>
               <td>`+item.ip+`</td>
               <td>`+item.desg+`</td>
-              <td>`+ new Date(item.corporate_debtor_insolvency_date).toLocaleString('en-IN',{day:'2-digit'})+ `-`+ 
-              new Date(item.corporate_debtor_insolvency_date).toLocaleString('en-IN',{month:'short'}) +`-`+ 
-              new Date(item.corporate_debtor_insolvency_date).getFullYear()+`</td>
-
-              <td>`+ new Date(item.insolvency_closing_date).toLocaleString('en-IN',{day:'2-digit'})+ `-`+ 
-              new Date(item.insolvency_closing_date).toLocaleString('en-IN',{month:'short'}) +`-`+ 
-              new Date(item.insolvency_closing_date).getFullYear()+`</td>
-            
+              <td>`+item.corporate_debtor_insolvency_date+`</td>
+              <td>`+item.insolvency_closing_date+`</td>
+              
               <td><a class="btn btn-sm btn-green" href="form-a/`+item.unique_id+`" target="_blank" role="button" style="padding:4px 15px;">View</a>
                 
               </td>  

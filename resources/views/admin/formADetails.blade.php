@@ -61,8 +61,8 @@
                     </td>
                     <td>{{$us->corporate_debtor_insolvency_date}}</td>
                     <td>{{$us->insolvency_closing_date}}</td>
-                    <td>{{$us->created_time}}</td>
-                    <td>{{$us->update_time}}</td>
+                    <td>{{$us->created_time ? dateFm2($us->created_time) : ''}}</td>
+                    <td>{{$us->update_time ? dateFm2($us->update_time) : ''}}</td>
                       <td>
                           <a class="btn btn-info btn-sm" href="../form-a/{{$us->unique_id}}" target="_blank" role="button"> <i class="fa fa-eye"></i> View</a>
                         <a class="{{Config::get('site.editDataBtn')}}" href="{{url(admin().'/edit-form-a/'.$us->id)}}"><i class="fa fa-edit"></i> Edit</a>

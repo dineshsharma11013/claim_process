@@ -97,6 +97,12 @@ function putFile($file, $path)
     }                  
 }
 
+function datFm($string)
+{
+  $obVal = date("d-m-Y", strtotime($string));
+  return $obVal;
+}
+
 
 function dateFm($string)
 {

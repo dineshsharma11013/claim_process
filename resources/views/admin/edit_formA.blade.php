@@ -106,7 +106,7 @@
                   </div>
 
                   <div class="form-group col-md-6">
-                  <label>Date of receipt order</label>
+                  <label>Order Receiving Date</label>
                   <input type="text" name="order_receving_date" id="order_receving_date" value="{{$cat->order_receving_date}}" class="form-control" autocomplete="off" >
                   <div class="error_cls" id="error_order_receving_date"></div>
                   </div>   
@@ -464,63 +464,61 @@
 
 
  // $('#CoverStartDateOtherPicker').datetimepicker({
- //          format : "YYYY-MM-DD"
+ //          format : "DD-MM-YYYY"
  //        }); 
 
 
-// $('#order_receving_date').datetimepicker({
-//     format: 'YYYY-MM-DD'
-//   }).on("dp.change", function (e) {
-//      //console.log(e.date._d);
-//     var commencement_date = $("#corporate_debtor_insolvency_date").val();
+$('#order_receving_date').datetimepicker({
+    format: 'DD-MM-YYYY'
+  }).on("dp.change", function (e) {
+     //console.log(e.date._d);
+    var commencement_date = $("#corporate_debtor_insolvency_date").val();
 
-//      var startDt = $('#order_receving_date').val(); 
+     var startDt = $('#order_receving_date').val(); 
       
-//      var mm2Dt = moment(startDt).add('days', 14);
-//      var cl2Dt = mm2Dt.format('YYYY-MM-DD');  
+     var mm2Dt = moment(startDt).add('days', 14);
+     var cl2Dt = mm2Dt.format('DD-MM-YYYY');  
 
-//      var mmDt = moment(startDt).add('days', 180);
-//      var clDt = mmDt.format('YYYY-MM-DD');
-//     // $("#insolvency_closing_date").val(clDt);
-//      $("#claim_last_date").val(cl2Dt);
+     var mmDt = moment(startDt).add('days', 180);
+     var clDt = mmDt.format('DD-MM-YYYY');
+    // $("#insolvency_closing_date").val(clDt);
+     $("#claim_last_date").val(cl2Dt);
 
-//      $("#order_receving_date").val(startDt);
+     $("#order_receving_date").val(startDt);
 
-//      if (commencement_date != startDt) {
-//       jQuery.noConflict();
-//       $('#myModal').modal('show'); 
-//      }
-//      console.log(commencement_date, startDt);
+     if (commencement_date != startDt) {
+      jQuery.noConflict();
+      $('#myModal').modal('show'); 
+     }
+     console.log(commencement_date, startDt);
 
     
-// });
+});
 
 
 
-$('#order_receving_date').datetimepicker({
-    format: 'YYYY-MM-DD'
-  });
+
 
 
    $('#incorporation_date').datetimepicker({
-    format: 'YYYY-MM-DD'
+    format: 'DD-MM-YYYY'
   });
   // $('#corporate_debtor_insolvency_date').datetimepicker({
-  //   format: 'YYYY-MM-DD'
+  //   format: 'DD-MM-YYYY'
   // });
 
   $('#corporate_debtor_insolvency_date').datetimepicker({
-    format: 'YYYY-MM-DD'
+    format: 'DD-MM-YYYY'
   }).on("dp.change", function (e) {
      //console.log(e.date._d);
     
      var startDt = $('#corporate_debtor_insolvency_date').val(); 
       
      var mm2Dt = moment(startDt).add('days', 14);
-     var cl2Dt = mm2Dt.format('YYYY-MM-DD');  
+     var cl2Dt = mm2Dt.format('DD-MM-YYYY');  
 
      var mmDt = moment(startDt).add('days', 180);
-     var clDt = mmDt.format('YYYY-MM-DD');
+     var clDt = mmDt.format('DD-MM-YYYY');
      $("#insolvency_closing_date").val(clDt);
      $("#claim_last_date").val(cl2Dt);
 
@@ -529,14 +527,14 @@ $('#order_receving_date').datetimepicker({
 });
 
 $('#insolvency_closing_date').datetimepicker({
-    format: 'YYYY-MM-DD'
+    format: 'DD-MM-YYYY'
   });
 
 $('#claim_last_date').datetimepicker({
-    format: 'YYYY-MM-DD'
+    format: 'DD-MM-YYYY'
   });
 $('#date').datetimepicker({
-    format: 'YYYY-MM-DD'
+    format: 'DD-MM-YYYY'
   });
 </script>
 

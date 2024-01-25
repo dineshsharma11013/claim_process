@@ -10,6 +10,7 @@ use App\Services\UsersSignUp;
 use App\Events\fForgotPasswardFire;
 use Illuminate\Support\Facades\Hash;
 use App\Models\companyDtl; 
+use App\Models\arMdl;
 use App\Models\arCreditorClassMdl;
 use Config;
 use DB;
@@ -33,6 +34,7 @@ class front extends Controller
          $comps = DB::table('form_a_mdls as fmA')
                     ->leftJoin('company_dtls as com', 'com.id','=','fmA.company_id')
                     ->where([['com.status','=',1],['com.deleted','=', 2],['fmA.status','=',1],['fmA.deleted','=', 2]])
+                    ->where('com.id',32)
                     ->distinct('fmA.company_id')
                     ->orderBy('com.name')
                     ->pluck('com.name','fmA.company_id');       
@@ -55,6 +57,7 @@ class front extends Controller
                         
                     ->select('fA.id as fA_id', 'gIP.first_name as ip', 'cmp.name as company', 'asn.designation', 'fA.corporate_debtor_insolvency_date', 'fA.insolvency_closing_date', 'fA.unique_id')
                     ->where([['fA.corporate_debtor_insolvency_date','<=',$current_time],['fA.insolvency_closing_date','>=',$current_time]])
+                    ->where('fA.id', 34)
                     ->get();           
 
         $upcomings = DB::table("form_a_mdls as fA")
@@ -87,7 +90,11 @@ class front extends Controller
     function formAView($id)
     {
         $cat = DB::table('form_a_mdls')->where('unique_id', $id)->first();
+
         $comp = DB::table('company_dtls')->select('name')->where('id', $cat->company_id)->first();  
+
+        $crCls = DB::table('ar_creditor_class_mdls')->select('creditor_classess','ar1','ar2','ar3')->where('ar_id', $cat->id)->get();
+        $crMdl = DB::table('ar_mdls')->select('id', 'name', 'reg_no')->get();
        // $classes = arMdl::where('status',1)->orderBy('name')->pluck('name','id');
 
         $clss = arCreditorClassMdl::where([['ar_id','=', $cat->id],['status','=',1],['deleted','=',2]])->get();        
@@ -95,12 +102,13 @@ class front extends Controller
         $ips = DB::table('general_info_mdls')->select('username')->where('id', $cat->user_id)->first();
         $com_name = companyDtl::select('name')->where('id',$cat->company_id)->first();
 
-       // dd($com_name);die();
+        $ips_nms = arMdl::where('status',1)->orderBy('name')->pluck('name','id');
+       //dd($crCls);die();
         //echo print_r($cat);die();
 
         $ips_nms = DB::table('general_info_mdls')->where([['user_type','=',2],['sub_user','=',''],['status','=',1],['flag','=',2]])->pluck('username','id');
 
-        $pdf = PDF::loadView('user.pdf.formA', compact("cat","comp","com_name","ips","clss", "ips_nms"));
+        $pdf = PDF::loadView('user.pdf.formA', compact("cat","comp","com_name","ips","clss", "ips_nms", "crCls", "crMdl"));
         
         $now = time();
         return $pdf->stream($now.'.pdf');

@@ -90,13 +90,14 @@ $signUp = "userSignUp";
 			<div class=" mx-2">   
 			<i class='bx bx-envelope' style="color:white"></i>
 
-			<span class="text-white"><a href="mailto:mail@ipsupport.in" class="text-white">mail@ipsupport.in</span> &nbsp;
+			<span class="text-white"><a href="mailto:mail@ipsupport.in" class="text-white">cirp.samarestates@gmail.com  
+</span> &nbsp;
 			</div>
 
-			<div class="mx-2">
+			<!-- <div class="mx-2">
 			<i class='bx bxs-phone-call' style="color:white" ></i>
 			<span class="text-white"><a href="tel:+91-9350444666" class="text-white"> +91-9350444666 </a></span>
-			</div>
+			</div> -->
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -141,7 +142,7 @@ $signUp = "userSignUp";
          </div>
          <div class='col-md-11 pt-3 text-white px-5'>
          <marquee>
-		 <h5 style="color:#223645!important;">IP Supports is Committed to Provide, Efficient and easy to use e-auction Platform for insolvency professionals, investors and establishments for direction</h5>
+		 <h5 style="color:#223645!important;">Last date of claim submission is 26-Jan-2024.</h5>
 		 </marquee>
          </div>
         </div>
@@ -153,7 +154,7 @@ $signUp = "userSignUp";
         <div class='row justify-content-center'>
              <div class="card-title text-center"><h3>Announcements</h3></div>
 			
-			<div class="col-md-3  p-2">
+			<!-- <div class="col-md-3  p-2">
 			<h5 class="text-center">Live Claim Process</h5>
 			<marquee height="200px" direction = "up" behaviour="scroll" scrolldelay="150" onmouseover='this.stop();' onmouseout='this.start();' style="position: relative;top:0px;">
 			@forelse($live as $lv)
@@ -170,7 +171,7 @@ $signUp = "userSignUp";
 			
 			</marquee>
 			</div>
-            
+             -->
 
 
 			<div class="col-md-6 border  bg-light">
@@ -178,7 +179,7 @@ $signUp = "userSignUp";
 			<div class="col-md-6">
 			<div class="form-outline">
 			<label class="form-label" for="form6Example1">Company</label>
-			{!! Form::select('company_name', $comps, null, ['onchange' =>'Removef("company_name");selectCompany("selectForm", this.value,"ip_name", "claimDiv", "claimDetails");', 'placeholder'=>'Please Select' , 'id' => 'company_name','class'=>'form-control', 'autocomplete','=','off']) !!}
+			<select onchange="Removef(&quot;company_name&quot;);selectCompany(&quot;selectForm&quot;, this.value,&quot;ip_name&quot;, &quot;claimDiv&quot;, &quot;claimDetails&quot;);" id="company_name" class="form-control" autocomplete="off" name="company_name"><option value="27" selected>M/S SAMAR ESTATES PRIVATE LIMITED</option></select>
 			<div class="error_cls" id="error_company_name"></div>
 			<!-- <input type="hidden" name="user_id" id="user_id" value=""> -->
 			</div>
@@ -186,7 +187,7 @@ $signUp = "userSignUp";
 			<div class="col-md-6">
 			<div class="form-outline">
 			<label class="form-label" for="form6Example2">IP</label>
-			<input type="text" name="ip_name" value="" id="ip_name" class="form-control" disabled autocomplete="off">
+			<input type="text" name="ip_name" value="Rahul Jindal" id="ip_name" class="form-control" disabled autocomplete="off">
 			<div class="error_cls" id="error_ip_name"></div>
 			</div>
 			</div>
@@ -197,8 +198,8 @@ $signUp = "userSignUp";
 
 			<div class="d-flex w-100 justify-content-center align-items-center m-2">
 
-			<button type="submit" class="btn btn-danger" id='sbt_serch'>Submit</button>
-			<button type="reset" class="btn btn-danger mx-2">Clear</button>	
+			<button type="submit" class="btn btn-danger" id='sbt_serch'>Submit Your Claim</button>
+			<!-- <button type="reset" class="btn btn-danger mx-2">Clear</button>	 -->
 			
 
 			</div>
@@ -209,7 +210,7 @@ $signUp = "userSignUp";
 			</div>
 			</div>
 	
-		<div class="col-md-3 p-2 " id='upcoming_laptop'>
+		<!-- <div class="col-md-3 p-2 " id='upcoming_laptop'>
 		<h5 class="text-center">Upcomming Claim Process</h5>
 		<marquee height="200px" direction = "up" behaviour="scroll" scrolldelay="150" onmouseover='this.stop();' onmouseout='this.start();' style="position: relative;top:0px;">
 		@forelse($upcomings as $lv)
@@ -224,14 +225,14 @@ $signUp = "userSignUp";
 			<p style="color: #263e89;font-weight: 600;text-align:center;" >No Claim</p>
 			@endforelse	
 		</marquee>
-		</div>
+		</div> -->
 		
     </div>
   </div>
   </form>
   
    <!-- bottom scroll -->
-     <div class="row">
+     <!-- <div class="row">
         <div class="col-md-12 mb-5">
             <div class="d-flex justify-content-between align-items-center breaking-news " style="background:#223645;">
                 <div class="d-flex flex-row flex-grow-1 flex-fill justify-content-center btn-danger py-2 text-white px-1 news"><span class="d-flex align-items-center">&nbsp;Important</span></div>
@@ -239,7 +240,7 @@ $signUp = "userSignUp";
                 </marquee>
             </div>
         </div>
-    </div>
+    </div> -->
 	<!-- bottom scroll -->
 	
  </div>
@@ -283,7 +284,7 @@ $signUp = "userSignUp";
                </div>  
 			   
 			   
-			   <div class="container pb-5 mb-2">
+		<!-- 	   <div class="container pb-5 mb-2">
 		<div class="row">            
 		<h3 style="font-family: arial;">Features of Claim Process</h3>
 		<div class="col-lg-12">
@@ -316,7 +317,7 @@ $signUp = "userSignUp";
 		</div>
 		</div>
 		
-		</div>
+		</div> -->
 			   
 			   
 
@@ -330,18 +331,18 @@ $signUp = "userSignUp";
           <!-- Grid column -->
           <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
             <!-- Content -->
-            <h6 class="text-uppercase fw-bold text-white" style='font-family:arial;'>E-Auction</h6>
+            <h6 class="text-uppercase fw-bold text-white" style='font-family:arial;'>CLAIMPROCESS</h6>
             <hr
                 class="mb-4 mt-0 d-inline-block mx-auto"
                 style="width: 60px; background-color:#db2352; height: 2px;opacity: 1;"
                 />
-            <p class="p-0" style='font-family:arial;'>IP Supports is Committed to Provide, Efficient and easy to use e-auction Platform for insolvency professionals, investors and establishments for directing the E-Auction of the resources of the organization under Liquidator as commanded under Insolvency and Bankruptcy Code , 2016 and different Laws.
+            <p class="p-0" style='font-family:arial;'>IP Supports is committed to provide, efficient and easy to use claim process platform for Insolvency Professionals to make CIRP process easy and effortless.
             </p>
           </div>
         
           <!-- Grid column -->
-          <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
-            <!-- Links -->
+          <!-- <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
+           
             <h6 class="text-uppercase fw-bold text-white" style='font-family:arial;'>Useful links</h6>
             <hr
                 class="mb-4 mt-0 d-inline-block mx-auto"
@@ -357,17 +358,17 @@ $signUp = "userSignUp";
             <p class="p-0 m-0" style='font-family:arial;'>
               <a href="#!" class="text-white">Help</a>
             </p>
-          </div>
+          </div> -->
           <!-- Grid column -->
 
           <!-- Grid column -->
-          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold text-white" style='font-family:arial;'>Contact</h6>
             <hr class="mb-4 mt-0 d-inline-block mx-auto"   style="width: 60px; background-color:#db2352; height: 2px;opacity: 1;"/>
-            <p class="mt-0 p-0" style='font-family:arial;'><i class='bx bxs-home-alt-2 mr-3'></i> 3208, 2nd Floor Mahindra Park, Near Rani Bagh Delhi-110034</p>
-            <p class="mt-0 p-0" style='font-family:arial;'><i class='bx bxs-envelope' ></i> mail@ipsupport.in</p>
-            <p class="mt-0 p-0" style='font-family:arial;'><i class='bx bxs-phone'></i> +91-9350444666 </p>
+            <p class="mt-0 p-0" style='font-family:arial;'><i class='bx bxs-home-alt-2 mr-3'></i>EssVee Apartments in front of GHS-105, Sector-20 Panchkula, Panchkula, Haryana, India, 134112</p>
+            <p class="mt-0 p-0" style='font-family:arial;'><i class='bx bxs-envelope' ></i> cirp.samarestates@gmail.com</p>
+            <!-- <p class="mt-0 p-0" style='font-family:arial;'><i class='bx bxs-phone'></i> +91-9350444666 </p> -->
            
           </div>
           <!-- Grid column -->

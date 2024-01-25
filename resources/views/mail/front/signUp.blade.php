@@ -1,1 +1,1 @@
-<p style='color:green;'>Hi diksha, Your OTP is 455486 for Sabre Edge IT Solutions login. This is valid for 10 minutes only.</p>
+<p style='color:green;'>Hi dinesh, Your OTP is 166363 for Sabre Edge IT Solutions login. This is valid for 10 minutes only.</p>

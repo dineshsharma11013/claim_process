@@ -9,7 +9,8 @@ use App\Models\financialCreditorFormCaMdl;
 use App\Models\formCAAprovalMdl;
 use App\Models\userMdl;
 use App\Traits\MethodsTrait;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\formCAExport;
 use Config;
 use Session;
 use DB;
@@ -73,6 +74,19 @@ class formCADtlCntrlr extends Controller
        //dd($users); 
       return view('admin.formCaDetails',compact("usrs","jsl","a_vl"));
     }
+
+    function exportExcel()
+    {
+      $data = financialCreditorFormCaMdl::exportClaimants();
+      $form_type = "Form-CA";
+
+      if (isset($data) && count($data) > 0) {
+      return Excel::download(new formCAExport($form_type, $data), $form_type.' Claimants.xlsx');
+      } else {
+      return redirect()->back()->with("danger", "There is no record.");
+    }
+    }
+    
 
     function formCaUnRegDetails()
    {

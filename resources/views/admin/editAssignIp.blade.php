@@ -112,7 +112,7 @@
 
 <script type="text/javascript">
    $('#appointment_date').datetimepicker({
-    format: 'YYYY-MM-DD'
+    format: 'DD-MM-YYYY'
   });
 </script>
 

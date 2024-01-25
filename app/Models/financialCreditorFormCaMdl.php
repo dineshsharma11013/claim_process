@@ -74,6 +74,30 @@ class financialCreditorFormCaMdl extends Model
         return $res;
     }
 
+    public static function exportClaimants()
+    {
+        $usrs = DB::table('financial_creditor_form_ca_mdls as fmB')
+                    ->leftJoin('user_mdls As usr', 'usr.id','=','fmB.user_id')
+                    ->leftJoin('form_a_mdls As formA', 'formA.id','=','fmB.formA')
+                    ->leftJoin('company_dtls as comp', 'comp.id','=','formA.company_id')
+                    ->leftJoin('general_info_mdls as ip','ip.id','=', 'formA.user_id')
+                    ->where([['fmB.submitted','=',1],['fmB.status','=',1]]);
+                    if (userType()->user_type==2) 
+                    {
+                      if (userType()->sub_user=='') 
+                      {
+                        $usrs = $usrs->where('fmB.irp', Session::get('admin_id'));
+                      }
+                      elseif (userType()->sub_user!='') 
+                      {
+                         $usrs = $usrs->where('fmB.irp', userType()->sub_user); 
+                      }
+                    }  
+                  $usrs = $usrs->select('fmB.id','fmB.fc_name as fc_name','ip.first_name as ip_name', 'ip.address as ip_address', 'fmB.fc_identification_number', 'fmB.fc_address', 'fmB.fc_email', 'fmB.claim_amt', 'fmB.claim_principle', 'fmB.claim_interest', 'fmB.document_details', 'fmB.debt_incurred_details', 'fmB.other_mutual_details', 'fmB.security_held', 'fmB.bank_account_number', 'fmB.bank_name', 'fmB.bank_ifsc_code', 'fmB.insolvency_professional_name')
+                    ->orderBy('fmB.id','desc')
+                    ->get();
+        return $usrs;            
+    }
 
 
 }

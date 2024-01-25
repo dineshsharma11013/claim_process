@@ -22,8 +22,8 @@ class generalInfoCntrlr extends Controller
 {
     use MethodsTrait;
 
-	function generalInfo(Request $req)
-	{
+  function generalInfo(Request $req)
+  {
 
         $users = generalInfoMdl::all()->sortByDesc('id');
         $jsl =  bPath().'/'.Config::get('site.general');
@@ -34,15 +34,15 @@ class generalInfoCntrlr extends Controller
         if ($cat) 
         {
           $a_vl =  Config::get('site.ipGeneral');
-        	return view('admin.edit_generalInfo',compact("users","jsl","cat","a_vl", "count"));
+          return view('admin.edit_generalInfo',compact("users","jsl","cat","a_vl", "count"));
         }
         else
         {
-       // dd($jsl);	
+       // dd($jsl); 
           $a_vl =  Config::get('site.adminGeneral');
         return view('admin.generalInfo',compact("users","jsl","a_vl"));
-   		}
-	}
+      }
+  }
 
 
   function changePassword(Request $req)
@@ -64,7 +64,7 @@ class generalInfoCntrlr extends Controller
   }
 
 
-	function saveData(Request $req)
+  function saveData(Request $req)
     {
         $response = array();
         $cat = new generalInfoMdl;
@@ -104,20 +104,20 @@ class generalInfoCntrlr extends Controller
          
    //      $req->file("file")->move("public/access/media/general",$fileName);  
    //      $cat->logo = $fileName;
-   //  	}
-   //  	else
-   //  	{
-   //  		$cat->logo = "";
-   //  	}
-   //  	$link = time();
- 		// $cat->link = $link;
- 		
-   //  	if($req->hasfile('banners'))
+   //   }
+   //   else
+   //   {
+   //     $cat->logo = "";
+   //   }
+   //   $link = time();
+    // $cat->link = $link;
+    
+   //   if($req->hasfile('banners'))
    //       {
-   //       	$dir = publicP()."/access/media/general/".$link;
+   //         $dir = publicP()."/access/media/general/".$link;
    //        if (!is_dir($dir)) 
    //        {
-   //        mkdir($dir, 0777, TRUE);		
+   //        mkdir($dir, 0777, TRUE);   
          
    //          foreach($req->file('banners') as $image)
    //          {
@@ -131,15 +131,15 @@ class generalInfoCntrlr extends Controller
    //    }
    //        else
    //        {
-   //      	$cat->banners = "";  	
+   //       $cat->banners = "";   
    //        }
 
 
-    	
+      
         
         if($cat->save())
         {
-            $response['error'] = false;	
+            $response['error'] = false; 
             $response['message'] = "Info Added Successfully";
           }
           else
@@ -303,14 +303,14 @@ function adminChangePassword(Request $req)
 
 function removeBanner(Request $req, $id, $banner)
 {
-	$response = array();
-	$cat = generalInfoMdl::find($id);
+  $response = array();
+  $cat = generalInfoMdl::find($id);
 
-	$val =  json_decode($cat->banners);
+  $val =  json_decode($cat->banners);
 
-	if (($key = array_search($banner, $val)) !== false) {
+  if (($key = array_search($banner, $val)) !== false) {
     unset($val[$key]);
-	
+  
     $cat->banners = json_encode($val);
 
   if(file_exists(publicP() . '/access/media/general/'.$cat->link.'/'.$banner))
@@ -320,7 +320,7 @@ function removeBanner(Request $req, $id, $banner)
   
   }
 
-	if($cat->save())
+  if($cat->save())
         {
             $response['error'] = false;
             $response['message'] = "Banner Removed Successfully";
@@ -331,18 +331,18 @@ function removeBanner(Request $req, $id, $banner)
             $response['message'] = "Banner Not Removed. Try Again Later.";
           }
 
-	echo json_encode($response);
+  echo json_encode($response);
 }
 
 
-	function login()
-	{
+  function login()
+  {
       $url = \Request::segment(1);
       // dd($url);die();
 
-	    $jsl = bPath().'/'.Config::get('site.login');
+      $jsl = bPath().'/'.Config::get('site.login');
       return view('admin.login',compact('jsl', 'url'));
-	}
+  }
   
   function signUp()
   {
@@ -542,75 +542,29 @@ function loginUser(Request $request)
       $fd = Config::get('site.admin_type');
       $today = date('Y-m-d');
       $a_vl =  Config::get('site.todoValSub');
-      $total_rc = 2;//Config::get('site.total_rc');
+      $total_rc = Config::get('site.total_rc');//2;//Config::get('site.total_rc');
       $rect = 2;
-
+      $companies = DB::table('company_dtls')->select('id','name')->get();
       if (userType()->user_type==2)
               {
-          
-                
-          $mydate=date('Y-m-d');
           $users = DB::table('todo_mdls as td')
               ->leftJoin('general_info_mdls as gen', 'gen.id', '=', 'td.assigned_to');
-       
+          // $users = $users->where([['td.created_by_id', '=', Session::get('admin_id')], ['td.deleted_by', '=', ''], ['td.task_type', '=', 'latest'],['td.end_date', '>=', $today]]);
           $users = $users->where([['td.created_by_id', '=', userType()->id], ['td.deleted_by', '=', ''], ['td.task_type', '=', 'latest'], ['td.status', '!=', 'completed']]);              
           $users =  $users->select('td.id as id', 'gen.first_name as name', 'td.task', 'td.comapny', 'td.cirp_name', 'td.message', 'td.status', 'td.start_date', 'td.created_at', 'td.updated_at', 'td.end_date', 'td.start_at', 'td.end_at')->orderBy('td.id', 'desc')->paginate();
-    
-        $companies = DB::table('company_dtls')->select('id','name')->get();  
 
-        $users_new = [];
-        $ip_company = getCompanyListByIp(); 
 
-        $timeline_dtls = DB::table('time_line')
-                        ->select('id', 'Section_Regulation', 'Activity_Steps', 'timeline_day')
-                        ->where('timeline_day', '!=', NULL)
-                        ->get();
 
-        foreach ($ip_company as $comp) {
-    $companyDetails = [
-        'company' => $comp,
-        'timeline_details' => [],
-    ];
-
-    foreach ($timeline_dtls as $tm) {
-   
-        $newDate = date('Y-m-d', strtotime($comp->insolvency_commencement_date . ' + ' . $tm->timeline_day . ' days'));
-        $actual_date = $comp->insolvency_commencement_date;
-
-        $timelineDetails = [
-            'id' => $tm->id,
-            'Section_Regulation' => $tm->Section_Regulation,
-            'Activity_Steps' => $tm->Activity_Steps,
-            'timeline_day' => $tm->timeline_day,
-            'actual_date' => $actual_date,
-            'new_date' => $newDate
-        ];
-
-        $companyDetails['timeline_details'][] = $timelineDetails;
-    }
-
-    $users_new[] = $companyDetails;
-      } 
-      
-
-      $new_users = array_merge($users->items(), $users_new);
-
-        $new_users_paginated = new \Illuminate\Pagination\LengthAwarePaginator(
-            $new_users,
-            $users->total(),
-            $users->perPage(),
-            $users->currentPage());
-        $new_users_paginated = (object)$new_users_paginated;
-
-        //echo count($timeline_dtls);die();
-
+        $ip_company = DB::table('company_dtls')->where(['user_id'=>Session('admin_id')])->get();
+        //  $encorporation_date = $ip_company->start_date;
+        $timeline_dtls = DB::table('time_line')->where('timeline_day','!=',NULL)->get();
 
         // echo "<pre>";
-        //   print_r($new_users_paginated);
+        //   print_r($users);
         //   echo "</pre>";
         //   die();
 
-      return view('admin.dashboard', compact("fd", "timeline_dtls","ip_company", "companies", "users", "rect", "total_rc", "a_vl", "new_users_paginated"));
+      return view('admin.dashboard', compact("fd", "timeline_dtls","ip_company", "companies", "users", "rect", "total_rc", "a_vl"));
     }
     elseif (userType()->user_type==4)
               {
@@ -641,7 +595,7 @@ function loginUser(Request $request)
     }
     else
     {
-    	return view('admin.dashboard', compact("fd"));
+      return view('admin.dashboard', compact("fd"));
       }
     }
 
@@ -747,6 +701,141 @@ function loginUser(Request $request)
     }
 
   }
+
+
+  function fetchData(Request $request)
+  {
+     if($request->ajax())
+        {
+
+            $rect = 2;
+
+            $total_rc = Config::get('site.total_rc');
+            $companies = DB::table('company_dtls')->select('id','name')->get();
+            $total_record = $request->total_record ?? '';
+            $ctgyy = $request->ctgyy ?? '';
+            $sort = $request->duration ?? '';
+            $from = $request->from ?? '';
+            $to = $request->to ?? '';
+
+            if ($ctgyy == 'cirp_task' || $ctgyy == '') {
+
+              $today = date('Y-m-d');
+            $date2 = strtotime("+7 day");
+            $next7 = date('Y-m-d', $date2);
+            $first_day_this_month = date('Y-m-01'); 
+            $last_day_this_month  = date('Y-m-t');
+
+            $users = DB::table('todo_mdls as td')
+                        ->leftJoin('general_info_mdls as gen', 'gen.id', '=', 'td.assigned_to');
+
+                    $users =  $users->select('td.id as id', 'gen.first_name as name', 'td.task', 'td.message', 'td.priority', 'td.status', 'td.start_date', 'td.end_date', 'td.created_at', 'td.updated_at', 'td.cirp_name', 'td.comapny', 'td.start_at', 'td.end_at');
+
+                  if ($sort == 'daily')
+                  {
+                    $users = $users->where([['td.task_type', '=', 'latest'],['td.end_date', '=', $today]]);
+                  }
+                  if ($sort == 'weekly')
+                  {
+                    $users = $users->where([['td.task_type', '=', 'latest']]);
+                    $users = $users->whereBetween('td.end_date',[$today, $next7]);
+                  }
+                  if ($sort == 'monthly')
+                  {
+                    $users = $users->where([['td.task_type', '=', 'latest']]);
+                    $users = $users->whereBetween('td.end_date',[$first_day_this_month, $last_day_this_month]);
+                  }    
+
+                  if (!empty($from) && empty($to))
+                  {
+                    $users = $users->where('td.start_date', $from);
+                  }
+                  if (empty($from) && !empty($to))
+                  {
+                    $users = $users->where('td.end_date', $to);
+                  }
+                  if (!empty($from) && !empty($to))
+                  {
+                    $users = $users->whereBetween('td.start_date',[$from, $to]);
+                  }
+
+                  $users = $users->where([['td.created_by_id', '=', Session::get('admin_id')], ['td.deleted_by', '=', '']])->orderBy('td.id', 'desc')->paginate($total_record);
+                 // return view('pagination.todoDetails', compact('users','rect','companies'))->render();
+                
+                  $output = view('pagination.todoDetailsSub', compact('users', 'companies'));     
+
+                  echo $output;
+                }
+        }
+    }    
+
+    function fetchDashbData(Request $request)
+    {
+        if($request->ajax())
+        {
+
+            $rect = 2;
+
+            $total_rc = Config::get('site.total_rc');
+            $companies = DB::table('company_dtls')->select('id','name')->get();
+            $total_record = $request->total_record ?? '';
+            $ctgyy = $request->ctgyy ?? '';
+            $sort = $request->duration ?? '';
+            $from = $request->from ?? '';
+            $to = $request->to ?? '';
+
+            if ($ctgyy == 'cirp_task' || $ctgyy == '') {
+
+              $today = date('Y-m-d');
+            $date2 = strtotime("+7 day");
+            $next7 = date('Y-m-d', $date2);
+            $first_day_this_month = date('Y-m-01'); 
+            $last_day_this_month  = date('Y-m-t');
+
+            $users = DB::table('todo_mdls as td')
+                        ->leftJoin('general_info_mdls as gen', 'gen.id', '=', 'td.assigned_to');
+
+                    $users =  $users->select('td.id as id', 'gen.first_name as name', 'td.task', 'td.message', 'td.priority', 'td.status', 'td.start_date', 'td.end_date', 'td.created_at', 'td.updated_at', 'td.cirp_name', 'td.comapny', 'td.start_at', 'td.end_at');
+
+                  if ($sort == 'daily')
+                  {
+                    $users = $users->where([['td.task_type', '=', 'latest'],['td.end_date', '=', $today]]);
+                  }
+                  if ($sort == 'weekly')
+                  {
+                    $users = $users->where([['td.task_type', '=', 'latest']]);
+                    $users = $users->whereBetween('td.end_date',[$today, $next7]);
+                  }
+                  if ($sort == 'monthly')
+                  {
+                    $users = $users->where([['td.task_type', '=', 'latest']]);
+                    $users = $users->whereBetween('td.end_date',[$first_day_this_month, $last_day_this_month]);
+                  }    
+
+                  if (!empty($from) && empty($to))
+                  {
+                    $users = $users->where('td.start_date', $from);
+                  }
+                  if (empty($from) && !empty($to))
+                  {
+                    $users = $users->where('td.end_date', $to);
+                  }
+                  if (!empty($from) && !empty($to))
+                  {
+                    $users = $users->whereBetween('td.start_date',[$from, $to]);
+                  }
+
+                  $users = $users->where([['td.created_by_id', '=', Session::get('admin_id')], ['td.deleted_by', '=', '']])->orderBy('td.id', 'desc')->paginate($total_record);
+                 // return view('pagination.todoDetails', compact('users','rect','companies'))->render();
+                
+                  $output = view('pagination.todoDetailsSub', compact('users', 'companies', 'rect'));     
+
+                  echo $output;
+                }
+        }
+    }
+
+
 
     public function assignDetails()
     {

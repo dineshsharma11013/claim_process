@@ -14,60 +14,43 @@
 </tr>
 </thead>
 <tbody>
-@forelse($new_users_paginated as $us)    
+  @if($rect == 2)
+                    <?php $i=$users->perPage() * ($users->currentPage() - 1); $i=$i+1; ?>
+                    @endif
+@forelse($users as $us)    
 <tr>
-    <td>{{$loop->index+1}}</td>
+    <td>@if($rect == 2)
+                        {{$i++}}
+                        @else
+                        {{$loop->index+1}}
+                        @endif</td>
 <td>
-     @if (is_array($us) && isset($us['cirp_name']))
-                {{ $us['cirp_name'] }}hg
-            @elseif (is_object($us) && isset($us->cirp_name))
-                {{ $us->cirp_name }} sdf
-            @endif
-
-
-@if (is_array($us) && isset($us['timeline_details']))
-   <?php
-        $total_num = count($us['timeline_details']);
-       ?>    
-  @endif 
-
-      @if (is_array($us) && isset($us['company']))
-                {{ $us['company']->cmpName }} -- {{$total_num}}
-            @elseif (is_object($us) && isset($us->cmpName))
-                {{ $us->cmpName }} 
-            @endif        
-
+    @foreach($companies as $cm)
+    @if($cm->id == $us->cirp_name)
+        {{$cm->name}}
+    @endif
+    @endforeach
+    @if($us->cirp_name == 'other')
+        {{$us->comapny}}
+    @endif
 </td>    
+<td>{{$us->task}}</td>
 <td>
-   @if (is_array($us) && isset($us['task']))
-                {{ $us['task'] }}
-            @elseif (is_object($us) && isset($us->task))
-                {{ $us->task }}
-            @endif
-
-
-@if (is_array($us) && isset($us['timeline_details']))
-              @foreach($us['timeline_details'] as $tm)
-                {{$tm['Section_Regulation']}}
-              @endforeach
-            @endif 
-
-
+{{$us->name}} 
 </td>
 <td>
-    @if (is_array($us) && isset($us['name']))
-                {{ $us['name'] }}
-            @elseif (is_object($us) && isset($us->name))
-                {{ $us->name }}
-            @endif
+    @foreach(Config::get('site.task_status') as $ik=>$iv)
+                     @if($us->status == $ik)
+                      {{$iv}}
+                     @endif
+                     @endforeach
 </td>
-<td>
- 
-</td>
-<td></td>
-<td></td>
-<td></td>
-<td>
+<td>{{$us->message}}</td>
+<td>{{$us->start_at ? $us->start_at : $us->start_date}}</td>
+<td>{{$us->end_at ? $us->end_at : $us->end_date}}</td>
+<td><a href="{{url(admin().'/edit-assign-task/'.$us->id)}}" target="_blank"><i class="fa fa-edit"></i></a>
+
+ <a onclick="deleteData('/delete-assign-task/{{$us->id}}','deleteUserData')" id="deleteUserData" href="javascript:void(0)"><i class="fa fa-trash-o"></i></a></td>
 </tr>
 @empty
 <tr><td>No Details Available</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -75,12 +58,11 @@
 
 </tbody>
 </table>
-{{$users->links('pagination.paginate')}}
+@if($rect == 2)
+
+                {{$users->links('pagination.paginate')}}
+                @endif
 
 </div>  
-
-
-
-
 
 

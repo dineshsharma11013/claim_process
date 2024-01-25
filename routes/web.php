@@ -69,6 +69,8 @@ Route::get('/', [generalInfoCntrlr::class, 'index'])->name('adminDashboard');
 Route::get('/todo-details/sort-data', [generalInfoCntrlr::class, 'sortTodo']);
 Route::get('/todo-pagination/sort_data', [generalInfoCntrlr::class, 'sort_Todo']);
 
+Route::get('/todo-pagination/dashboard/fetch_data', [generalInfoCntrlr::class, 'fetchData']);
+Route::get('/todo-details/dashboard/fetch-data', [generalInfoCntrlr::class, 'fetchDashbData']);
 
 Route::get('/assignments-details', [generalInfoCntrlr::class, 'assignDetails']);
 
@@ -292,7 +294,7 @@ Route::get('/form-ca-unregistered', [formCADtlCntrlr::class, 'formCaUnRegDetails
 Route::get('/get-form-ca-pdf-report/{main_id}/{other_id}', [formCADtlCntrlr::class, 'getFormCAPdfReport']);
 Route::get('/form-ca-mail-rp/{id}', [formCADtlCntrlr::class, 'rpMailInfoFormCA']);
 Route::post('/send-formCA-user-report', [formCADtlCntrlr::class, 'rpMailSend']);
-
+Route::get('export-excel-ca', [formCADtlCntrlr::class, 'exportExcel'])->name('export_excel_ca');
 
 Route::get('/form-e-registered', [formEDtlCntrlr::class, 'formEDetails'])->name('formERegDetails');
 Route::get('/form-e-registered-details/{id}', [formEDtlCntrlr::class, 'viewFormEDetails']);

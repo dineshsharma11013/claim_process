@@ -195,10 +195,51 @@ svg#SvgjsSvg2129 {
 <div class="box-body" style="
     padding-bottom: 0px;
 ">
-<a href="javascript:void(0)"  onclick="sortBy('all'); changecolor(0);" id="export0" class="btn bg-primary btn-md btnf" style="font-size:20px;font-weight:bold;background:#337abd2b !important;color:black"> All</a>
+<select class="col-md-1"  onchange="getUsrInfo('total_records','ctgyy', 'duration', 'from', 'to')" name="total_records" id="total_records" autocomplete="off">
+                  @foreach(Config::get('site.total_records') as $fc=>$fv)
+                  <option value="{{$fv}}" >{{$fv}}</option>
+                  @endforeach
+                </select>
+
+
+<select id="ctgyy" onchange="getUsrInfo('total_records','ctgyy', 'duration', 'from', 'to')" autocomplete="off" style="
+    /*height: 38px;
+    font-size: 16px;*/
+    /*font-weight: bold;*/
+    float: left;
+    margin-left: 5px;
+    border: 2px solid;
+    border-radius: 5px;
+">
+    <option value="">Choose Category</option>
+    <option value="cirp_task">Cirp Task</option>
+    <option value="cirp_timeline">Cirp Timeline</option>
+</select>
+
+<select id="duration" onchange="getUsrInfo('total_records','ctgyy', 'duration', 'from', 'to')" style="
+    /*height: 38px;
+    font-size: 16px;*/
+    /*font-weight: bold;*/
+    float: left;
+    margin-left: 5px;
+    border: 2px solid;
+    border-radius: 5px;
+" autocomplete="off">
+    <option value="">Choose Duration</option>
+    <option value="all">All</option>
+    <option value="daily">Daily</option>
+    <option value="weekly">Weekly</option>
+    <option value="monthly">Monthly</option>
+</select>
+
+<input type="text" name="from" id="from" value="" class="col-md-2" placeholder="From Date" style="border:1px solid black;margin-left: 5px;" autocomplete="off">
+<input type="text" name="to" id="to" class="col-md-2" value="" placeholder="To Date" style="border:1px solid black;margin-left: 5px;" autocomplete="off">
+
+
+<!-- <a href="javascript:void(0)"  onclick="sortBy('all'); changecolor(0);" id="export0" class="btn bg-primary btn-md btnf" style="font-size:20px;font-weight:bold;background:#337abd2b !important;color:black"> All</a>
 <a href="javascript:void(0)"  onclick="sortBy('daily');changecolor(1);" id="export1"class="btn bg-primary btn-md btnf" style="font-size:20px;font-weight:bold"> Daily</a>
 <a href="javascript:void(0)"  onclick="sortBy('weekly');changecolor(2);"  id="export2" class="btn bg-primary btn-md btnf" style="font-size:20px;font-weight:bold"> Weekly</a>
-<a href="javascript:void(0)"  onclick="sortBy('monthly');changecolor(3);" id="export3" class="btn bg-primary btn-md btnf" style="font-size:20px;font-weight:bold"> Monthly</a>
+<a href="javascript:void(0)"  onclick="sortBy('monthly');changecolor(3);" id="export3" class="btn bg-primary btn-md btnf" style="font-size:20px;font-weight:bold"> Monthly</a> -->
 
     <a href="{{url(admin().'/activity-details')}}" class="btn bg-maroon btn-flat btn-sm" class="btn btn-default pull-right" style="border-radius:5px;float: right;font-size:20px;" ><i class="fa fa-eye"></i> View All</a> 
 <a href="{{url(admin().'/assign-task')}}" class="btn bg-maroon btn-flat  btn-sm" class="btn btn-default pull-right" style="border-radius:5px;float: right;font-size:20px;margin-right:15px;"><i class="fa fa-plus"></i> Assign Task</a>  
@@ -458,6 +499,36 @@ el.html(el.html()+': '+visitorsData[code]+' new visitors');}});var myvalues=[100
 // } );
 </script>
 @section('script')
+
+<script src="{{ asset('public/access/datepicker/bootstrap-datetimepicker.min.js') }}"></script>
+<script type="text/javascript">
+
+   $('#from').datetimepicker({
+    format: 'YYYY-MM-DD',
+
+  }).on("dp.change", function (e) {
+    $('#table_data').html('');
+      getUsrInfo('total_records','ctgyy', 'duration', 'from', 'to');
+  })
+
+   $('#to').datetimepicker({
+    format: 'YYYY-MM-DD',
+
+  }).on("dp.change", function (e) {
+
+    $('#table_data').html('');
+
+    getUsrInfo('total_records','ctgyy', 'duration', 'from', 'to');
+
+  });
+
+
+
+
+
+</script>
+
+
 <x-vjs :file="$a_vl" />
 
 @endsection  

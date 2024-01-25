@@ -24,6 +24,7 @@
           <div class="box">
             <div class="box-header">
              <!--  <a href="{{url(admin().'/add-user-type')}}" class="{{Config::get('site.addDataBtn')}}" style="float: right;"><i class="fa fa-plus"></i> ADD user type</a> -->
+             <a href="{{route('export_excel_ca')}}" id="export" class="btn btn-primary btn-sm" style="margin-top:10px;float: right;"><i class="fa fa-file"> Export To Excel</i></a>
               <h3 class="box-title"><u>Form CA Registered Details</u></h3>
             </div>
             <!-- /.box-header -->
